@@ -1,0 +1,32 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "MyWall-DEV",
+            "request": "launch",
+            "type": "dart",
+            //* "program": "flutter run --flavor mywall_dev -t lib/main_mywall_dev.dart",
+            "program": "lib/main_mywall_dev.dart",
+            "args": ["--flavor","mywall_dev","-t","lib/main_mywall_dev.dart"]
+        },
+        {
+            "name": "MyWall-QA",
+            "request": "launch",
+            "type": "dart",
+            //* "program": "flutter run --flavor mywall_dev -t lib/main_mywall_dev.dart",
+            "program": "lib/main_mywall_qa.dart",
+            "args": ["--flavor","mywall_qa","-t","lib/main_mywall_qa.dart"]
+        },
+        {
+            "name": "MyWall",
+            "request": "launch",
+            "type": "dart",
+            //* "program": "flutter run --flavor mywall_dev -t lib/main_mywall_dev.dart",
+            "program": "lib/main_mywall.dart",
+            "args": ["--flavor","mywall","-t","lib/main_mywall.dart"]
+        },
+    ]
+}
