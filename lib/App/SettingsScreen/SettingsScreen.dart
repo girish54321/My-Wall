@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:reqres_app/AppConst/AppConst.dart';
 import 'package:reqres_app/state/settingsState.dart';
+import 'package:reqres_app/widget/buttons.dart';
 
 class SettingsScreen extends StatefulWidget {
   SettingsScreen({Key? key}) : super(key: key);
@@ -12,6 +15,7 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   final SettingController settingController =
       GetInstance().put<SettingController>(SettingController());
+  GetStorage box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: Column(
         children: [
+          AppButton(
+              child: Text(""),
+              function: () {
+                print(box.hasData(JWT_KEY));
+              }),
           ListTile(
               title: const Text("Theme"),
               subtitle: const Text("Change app them"),

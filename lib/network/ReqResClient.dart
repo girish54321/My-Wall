@@ -24,14 +24,18 @@ class ReqResClient {
       'Content-Type': 'application/json',
       if (box.hasData(JWT_KEY)) 'Authorization': 'Bearer ${box.read(JWT_KEY)}',
     };
-
+    print("headers 22");
+    print(headers.toString());
     switch (requestType) {
       case RequestType.GET:
         var uri =
             _baseUrl + path + ((params != null) ? queryParameters(params) : "");
         print("API URL");
         print(uri);
-        return _client.get(Uri.parse(uri));
+        return _client.get(
+          Uri.parse(uri),
+          headers: headers,
+        );
       case RequestType.POST:
         print("API URL");
         var url =

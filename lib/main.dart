@@ -17,21 +17,21 @@ class MyWallApp extends StatelessWidget {
   Widget build(BuildContext context) {
     GetStorage box = GetStorage();
     GetInstance().put<SettingController>(SettingController());
+    String jwt = box.read(JWT_KEY) ?? "";
     return GetMaterialApp(
       title: 'Flutter Demo',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
-      theme: ThemeData(
-        useMaterial3: true,
-      ),
+      theme: ThemeData(useMaterial3: true),
       getPages: [
         GetPage(
-            name: '/',
-            page: () {
-              return box.hasData(JWT_KEY)
-                  ? _wrapWithBanner(HomeScreen())
-                  : _wrapWithBanner(LoginScreen());
-            })
+          name: '/',
+          page: () {
+            return jwt.isNotEmpty
+                ? _wrapWithBanner(HomeScreen())
+                : _wrapWithBanner(const LoginScreen());
+          },
+        ),
       ],
     );
   }

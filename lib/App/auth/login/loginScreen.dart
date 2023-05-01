@@ -113,9 +113,10 @@ class _LoginScreenState extends State<LoginScreen> {
     result.then((value) {
       if (value is SuccessState) {
         Helper().hideLoading();
-        Helper().hideLoading();
         GetStorage box = GetStorage();
         var res = value.value as LoginSuccess;
+        print("Save this");
+        print(res.accessToken);
         box.write(JWT_KEY, res.accessToken);
         Get.off(HomeScreen());
       } else if (value is ErrorState) {
