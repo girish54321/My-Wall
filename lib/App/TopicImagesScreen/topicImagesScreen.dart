@@ -15,6 +15,7 @@ class TopicImagesScreen extends StatefulWidget {
 class _TopicImagesScreenState extends State<TopicImagesScreen> {
   final CategoryTabController categoryTabController =
       Get.put(CategoryTabController());
+  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _TopicImagesScreenState extends State<TopicImagesScreen> {
     return TopicImagesScreenUI(
       topics: widget.topics,
       categoryTabController: categoryTabController,
+      scrollController: scrollController,
     );
   }
 }

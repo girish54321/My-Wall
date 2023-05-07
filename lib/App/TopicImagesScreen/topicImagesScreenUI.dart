@@ -7,8 +7,12 @@ import 'package:reqres_app/widget/imageList.dart';
 class TopicImagesScreenUI extends StatelessWidget {
   final Topics? topics;
   final CategoryTabController categoryTabController;
+  final ScrollController scrollController;
   const TopicImagesScreenUI(
-      {Key? key, this.topics, required this.categoryTabController})
+      {Key? key,
+      this.topics,
+      required this.categoryTabController,
+      required this.scrollController})
       : super(key: key);
 
   @override
@@ -37,6 +41,7 @@ class TopicImagesScreenUI extends StatelessWidget {
       // ),
       body: ImageList(
         imageList: categoryTabController.topicImages.value,
+        scrollController: scrollController,
       ),
     );
   }

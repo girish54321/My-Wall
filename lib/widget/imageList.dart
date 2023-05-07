@@ -9,9 +9,11 @@ import 'package:reqres_app/widget/appNetWorkImage%20copy.dart';
 
 class ImageList extends StatelessWidget {
   final List<UnsplashResponse?>? imageList;
+  final ScrollController scrollController;
   const ImageList({
     Key? key,
     required this.imageList,
+    required this.scrollController,
   }) : super(key: key);
 
   @override
@@ -19,6 +21,7 @@ class ImageList extends StatelessWidget {
     return MasonryGridView.builder(
       shrinkWrap: true,
       crossAxisSpacing: 6.5,
+      controller: scrollController,
       mainAxisSpacing: 6.5,
       padding: const EdgeInsets.all(
         6.5,

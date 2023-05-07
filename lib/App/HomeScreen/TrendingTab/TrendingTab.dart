@@ -11,12 +11,15 @@ class TrendingTab extends StatefulWidget {
 }
 
 class _TrendingTabState extends State<TrendingTab> {
+  ScrollController scrollController = ScrollController();
+  final TendingTabController tendingTabController =
+      Get.put(TendingTabController());
+
   @override
   Widget build(BuildContext context) {
-    final TendingTabController tendingTabController =
-        Get.put(TendingTabController());
     return TrendingTabUI(
       tendingTabController: tendingTabController,
+      scrollController: scrollController,
     );
   }
 }

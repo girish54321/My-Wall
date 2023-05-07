@@ -11,12 +11,36 @@ class HomeTab extends StatefulWidget {
 }
 
 class _HomeTabState extends State<HomeTab> {
+  final HomeTabController homeController = Get.put(HomeTabController());
+  final ScrollController _scrollController = ScrollController();
+
+  void loadMoreImages() {
+    homeController.getImage();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(() {
+      if (_scrollController.offset >=
+              _scrollController.position.maxScrollExtent &&
+          !_scrollController.position.outOfRange) {
+        loadMoreImages();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final HomeTabController homeController = Get.put(HomeTabController());
-
     return HomeTabUI(
       homeTabController: homeController,
+      scrollController: _scrollController,
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }

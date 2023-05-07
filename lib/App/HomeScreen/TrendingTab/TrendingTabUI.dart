@@ -5,7 +5,11 @@ import 'package:reqres_app/widget/imageList.dart';
 
 class TrendingTabUI extends StatelessWidget {
   final TendingTabController tendingTabController;
-  const TrendingTabUI({Key? key, required this.tendingTabController})
+  final ScrollController scrollController;
+  const TrendingTabUI(
+      {Key? key,
+      required this.tendingTabController,
+      required this.scrollController})
       : super(key: key);
 
   @override
@@ -17,6 +21,7 @@ class TrendingTabUI extends StatelessWidget {
               ? const Text("Noting Here")
               : ImageList(
                   imageList: tendingTabController.tendingImages.value,
+                  scrollController: scrollController,
                 )),
     );
   }
