@@ -25,7 +25,7 @@ class AppNetWorkImage extends StatelessWidget {
         child: OctoImage(
           image: CachedNetworkImageProvider(imageUrl),
           placeholderBuilder: OctoPlaceholder.blurHash(
-            blurHash != null ? blurHash : "LBAdAqof00WCqZj[PDay0.WB}pof",
+            blurHash,
           ),
           errorBuilder: OctoError.icon(color: Colors.red),
           fit: BoxFit.cover,

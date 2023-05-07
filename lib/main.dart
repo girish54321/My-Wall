@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:reqres_app/App/HomeScreen/HomeScreen.dart';
+import 'package:reqres_app/App/HomeScreen/HomeTabScreen.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/App/auth/login/loginScreen.dart';
 import 'package:reqres_app/AppConst/AppConst.dart';
@@ -28,7 +28,7 @@ class MyWallApp extends StatelessWidget {
           name: '/',
           page: () {
             return jwt.isNotEmpty
-                ? _wrapWithBanner(HomeScreen())
+                ? _wrapWithBanner(const HomeTabScreen())
                 : _wrapWithBanner(const LoginScreen());
           },
         ),

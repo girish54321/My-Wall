@@ -28,7 +28,7 @@ class ReqResClient {
     print(headers.toString());
     switch (requestType) {
       case RequestType.GET:
-        var uri =
+        var uri = customBaseUrl ??
             _baseUrl + path + ((params != null) ? queryParameters(params) : "");
         print("API URL");
         print(uri);

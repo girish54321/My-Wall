@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:reqres_app/App/SettingsScreen/SettingsScreen.dart';
 import 'package:reqres_app/AppConst/widgetList.dart';
+import 'package:reqres_app/network/util/helper.dart';
 import 'package:reqres_app/widget/appAboutDialog.dart';
 
-class HomeScreenUI extends StatelessWidget {
+class HomeTabScreenUI extends StatelessWidget {
   final List<Widget> children;
-  const HomeScreenUI({Key? key, required this.children}) : super(key: key);
+  const HomeTabScreenUI({Key? key, required this.children}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class HomeScreenUI extends StatelessWidget {
                   Icons.info_outline,
                 ),
                 onPressed: () {
-                  AppAboutDialog().showAppAboutDialog(context);
+                  Helper().goToPage(context: context, child: SettingsScreen());
                 }),
             centerTitle: true,
             elevation: 0.0,

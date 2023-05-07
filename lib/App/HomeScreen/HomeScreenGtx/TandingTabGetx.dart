@@ -3,18 +3,18 @@ import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/result.dart';
 import 'package:reqres_app/network/unsplash_data_source.dart';
 
-class HomeScreenController extends GetxController {
+class TendingTabController extends GetxController {
   //* Active Trips
   //* History Trips
   RxBool homeScreenLoading = true.obs;
-  RxList<UnsplashResponse> homeScreenImage = RxList<UnsplashResponse>([]);
+  RxList<UnsplashResponse> tendingImages = RxList<UnsplashResponse>([]);
 
   final UnSplashRemoteDataSource _apiResponse = UnSplashRemoteDataSource();
 
   @override
   void onReady() {
-    getImage();
     super.onReady();
+    getImage();
   }
 
   @override
@@ -23,13 +23,13 @@ class HomeScreenController extends GetxController {
   }
 
   void getImage() {
-    var parameter = {"order_by": "latest", "per_page": "15"};
+    var parameter = {"order_by": "popular", "per_page": "15"};
     Future<Result> result = _apiResponse.getHomeScreenImage(parameter);
     result.then((value) {
       homeScreenLoading.value = false;
       if (value is SuccessState) {
         var res = value.value as List<UnsplashResponse>;
-        homeScreenImage.value = res;
+        tendingImages.value = res;
       } else {}
     });
   }

@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get/get.dart';
+import 'package:reqres_app/App/auth/login/loginScreen.dart';
 import 'package:reqres_app/widget/DialogHelper.dart';
 
 class Helper {
@@ -18,6 +20,16 @@ class Helper {
           builder: (context) => child,
         ),
       );
+    }
+  }
+
+  Future<void> userLogout(BuildContext context) async {
+    final action =
+        await Dialogs.yesAbortDialog(context, 'Log Out?', 'Are you sure?');
+    if (action == DialogAction.yes) {
+      final box = GetStorage();
+      box.remove('token');
+      Get.offAll(const LoginScreen());
     }
   }
 
