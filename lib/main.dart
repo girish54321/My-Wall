@@ -21,7 +21,10 @@ class MyWallApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       themeMode: ThemeMode.system,
-      darkTheme: ThemeData(brightness: Brightness.dark, useMaterial3: true),
+      darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          useMaterial3: true,
+          scaffoldBackgroundColor: Colors.black),
       theme: ThemeData(useMaterial3: true),
       getPages: [
         GetPage(

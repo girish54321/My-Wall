@@ -1,5 +1,7 @@
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:reqres_app/App/ImageView/imageView.dart';
 import 'package:reqres_app/App/TopicImagesScreen/topicImagesScreen.dart';
 import 'package:reqres_app/network/dataModel/topic.dart';
@@ -18,32 +20,48 @@ class ImageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MasonryGridView.builder(
-      shrinkWrap: true,
-      crossAxisSpacing: 6.5,
-      controller: scrollController,
-      mainAxisSpacing: 6.5,
-      padding: const EdgeInsets.all(
-        6.5,
-      ),
-      itemCount: imageList?.length,
-      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2),
-      itemBuilder: (context, index) {
-        UnsplashResponse? item = imageList?[index];
-        return InkWell(
-          onTap: () {
-            Helper().goToPage(
-                context: context, child: ImageView(unPlashResponse: item));
-          },
-          child: AppNetWorkImage(
-            blurHash: item?.blurHash ?? "",
-            height: item?.height ?? 10,
-            imageUrl: item?.urls?.small ?? "",
-            width: item?.width ?? 11,
-          ),
-        );
+    return CustomRefreshIndicator(
+      onRefresh: () {
+        return Future.delayed(Duration(seconds: 1), () {
+          return true;
+        });
       },
+      builder: MaterialIndicatorDelegate(
+        builder: (context, controller) {
+          return const Icon(
+            Icons.image,
+            color: Colors.white,
+            size: 30,
+          );
+        },
+      ),
+      child: MasonryGridView.builder(
+        shrinkWrap: true,
+        crossAxisSpacing: 6.5,
+        controller: scrollController,
+        mainAxisSpacing: 6.5,
+        padding: const EdgeInsets.all(
+          6.5,
+        ),
+        itemCount: imageList?.length,
+        gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2),
+        itemBuilder: (context, index) {
+          UnsplashResponse? item = imageList?[index];
+          return InkWell(
+            onTap: () {
+              Helper().goToPage(
+                  context: context, child: ImageView(unPlashResponse: item));
+            },
+            child: AppNetWorkImage(
+              blurHash: item?.blurHash ?? "",
+              height: item?.height ?? 10,
+              imageUrl: item?.urls?.small ?? "",
+              width: item?.width ?? 11,
+            ),
+          );
+        },
+      ),
     );
   }
 }

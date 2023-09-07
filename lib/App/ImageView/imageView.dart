@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
+import 'package:reqres_app/app.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/downloadOption.dart';
+import 'package:reqres_app/network/util/helper.dart';
 
 class ImageView extends StatefulWidget {
   final UnsplashResponse? unPlashResponse;
@@ -49,6 +51,14 @@ class _ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Helper().goBack();
+          },
+        ),
+      ),
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -59,6 +69,10 @@ class _ImageViewState extends State<ImageView> {
           errorBuilder: OctoError.icon(color: Colors.red),
           fit: BoxFit.contain,
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.download),
+        onPressed: () {},
       ),
     );
   }

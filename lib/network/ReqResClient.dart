@@ -30,14 +30,14 @@ class ReqResClient {
       case RequestType.GET:
         var uri = customBaseUrl ??
             _baseUrl + path + ((params != null) ? queryParameters(params) : "");
-        print("API URL");
+        print("API URL12");
         print(uri);
         return _client.get(
           Uri.parse(uri),
           headers: headers,
         );
       case RequestType.POST:
-        print("API URL");
+        print("API URL23");
         var url =
             customBaseUrl != null ? "$customBaseUrl/$path" : "$_baseUrl/$path";
         print(url);

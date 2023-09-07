@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:reqres_app/App/SettingsScreen/SettingsScreen.dart';
+import 'package:reqres_app/App/searchedImagePage.dart';
 import 'package:reqres_app/AppConst/widgetList.dart';
 import 'package:reqres_app/network/util/helper.dart';
-import 'package:reqres_app/widget/appAboutDialog.dart';
 
 class HomeTabScreenUI extends StatelessWidget {
   final List<Widget> children;
@@ -32,7 +32,10 @@ class HomeTabScreenUI extends StatelessWidget {
                   icon: const Icon(
                     Icons.search,
                   ),
-                  onPressed: () {}),
+                  onPressed: () {
+                    Helper()
+                        .goToPage(context: context, child: SearchedImagePage());
+                  }),
             ],
           ),
           body: TabBarView(

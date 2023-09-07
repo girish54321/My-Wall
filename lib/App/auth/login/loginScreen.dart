@@ -27,7 +27,10 @@ class _LoginScreenState extends State<LoginScreen> {
   double progress = 0;
   final urlController = TextEditingController();
 
-  void loginUser(String code) {
+  void loginUser(String? code) {
+    if (code == null) {
+      return;
+    }
     Helper().dismissKeyBoard(context);
     Helper().showLoading();
     RemoteDataSource _apiResponse = RemoteDataSource();
@@ -61,7 +64,6 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(title: const Text("Login!")),
         body: SafeArea(
             child: Column(children: <Widget>[
-          // webViewController?.loadUrl(urlRequest: URLRequest(url: url));
           Expanded(
             child: Stack(
               children: [
@@ -77,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     if (url.toString().contains('code')) {
                       String url1 = url.toString();
                       String? code = Helper().getCodeFromUrl(url1);
-                      loginUser(code!);
+                      loginUser(code);
                     }
                     setState(() {
                       this.url = url.toString();
@@ -85,7 +87,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     });
                   },
                   onProgressChanged: (controller, progress) {
-                    Helper().showLoading();
                     if (progress == 100) {
                       Helper().hideLoading();
                       pullToRefreshController?.endRefreshing();
