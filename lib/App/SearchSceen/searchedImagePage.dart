@@ -67,11 +67,13 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
           ),
         ),
       ),
-      body: Obx((() => ImageList(
-            isLoading: homeController.homeScreenLoading.value,
-            imageList: homeController.homeScreenImage,
-            scrollController: _scrollController,
-          ))),
+      body: Obx((() => homeController.homeScreenImage.isEmpty
+          ? const Center(child: Text("Search You image"))
+          : ImageList(
+              isLoading: homeController.homeScreenLoading.value,
+              imageList: homeController.homeScreenImage,
+              scrollController: _scrollController,
+            ))),
     );
   }
 

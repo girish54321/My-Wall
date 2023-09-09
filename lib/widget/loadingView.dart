@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:reqres_app/network/model/loading.dart';
+import 'package:reqres_app/network/util/helper.dart';
 
 class LoadingView extends StatefulWidget {
   final bool? isSliver;
@@ -28,21 +29,6 @@ class _LoadingViewState extends State<LoadingView> {
     });
   }
 
-  Widget loadingItem(LoadingElement? loadingElement, int index) {
-    return AspectRatio(
-      aspectRatio: loadingElement!.width! / loadingElement.height!,
-      child: GlowingProgressIndicator(
-        duration: Duration(milliseconds: (index + 5) * 100),
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.4),
-            borderRadius: const BorderRadius.all(Radius.circular(4)),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   void initState() {
     _getLoadingData();
@@ -63,7 +49,7 @@ class _LoadingViewState extends State<LoadingView> {
             crossAxisCount: 2),
         itemBuilder: (context, index) {
           LoadingElement? loadingElement = loading?[index];
-          return loadingItem(loadingElement, index);
+          return Helper().loadingItem(loadingElement, index);
         });
   }
 }

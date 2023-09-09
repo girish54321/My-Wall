@@ -47,7 +47,6 @@ class CategoryTabController extends GetxController {
       if (value is SuccessState) {
         var res = value.value as List<UnsplashResponse>;
         topicsPageNumber.value = topicsPageNumber.value + 1;
-        // topicImages.value = res;
         topicImages.addAll(res);
       } else {}
     });

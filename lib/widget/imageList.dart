@@ -7,6 +7,7 @@ import 'package:reqres_app/network/dataModel/topic.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/util/helper.dart';
 import 'package:reqres_app/widget/appNetWorkImage%20copy.dart';
+import 'package:reqres_app/widget/loadingView.dart';
 
 class ImageList extends StatelessWidget {
   final List<UnsplashResponse?>? imageList;
@@ -21,9 +22,9 @@ class ImageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // if (imageList == null || imageList!.isEmpty) {
-    //   return const LoadingView();
-    // }
+    if (imageList == null || imageList!.isEmpty && isLoading) {
+      return const LoadingView();
+    }
     return CustomRefreshIndicator(
       onRefresh: () {
         // ignore: void_checks
@@ -53,7 +54,9 @@ class ImageList extends StatelessWidget {
             crossAxisCount: 2),
         itemBuilder: (context, index) {
           if (index == imageList!.length) {
-            return const Center(child: CircularProgressIndicator());
+            return isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : const Text("");
           }
           UnsplashResponse? item = imageList?[index];
           return InkWell(

@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get/get.dart';
+import 'package:progress_indicators/progress_indicators.dart';
 import 'package:reqres_app/App/auth/login/loginScreen.dart';
+import 'package:reqres_app/network/model/loading.dart';
 import 'package:reqres_app/widget/DialogHelper.dart';
 
 class Helper {
@@ -72,5 +74,21 @@ class Helper {
       return '?${jsonString.query}';
     }
     return '';
+  }
+
+  Widget loadingItem(LoadingElement? loadingElement, int index) {
+    return AspectRatio(
+      aspectRatio:
+          (loadingElement?.width ?? 1200) / (loadingElement?.height ?? 2000),
+      child: GlowingProgressIndicator(
+        duration: Duration(milliseconds: (index + 5) * 100),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.4),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
+          ),
+        ),
+      ),
+    );
   }
 }
