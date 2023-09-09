@@ -47,6 +47,8 @@ dependencies:
   liquid_pull_to_refresh: ^3.0.1
   custom_refresh_indicator: ^2.2.1
   progress_indicators: ^1.0.0
+  flutter_downloader: ^1.11.1
+  path_provider: ^2.1.1
 
 dev_dependencies:
   flutter_test:

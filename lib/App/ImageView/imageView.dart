@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
@@ -71,7 +75,16 @@ class _ImageViewState extends State<ImageView> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.download),
-        onPressed: () {},
+        onPressed: () async {
+          final Directory? downloadsDir = await getDownloadsDirectory();
+          final taskId = await FlutterDownloader.enqueue(
+              url: widget.unPlashResponse?.urls?.regular ?? "",
+              savedDir: downloadsDir!.path,
+              fileName: Helper().getFileName(5),
+              showNotification:
+                  true, // show download progress in status bar (for Android)
+              openFileFromNotification: true);
+        },
       ),
     );
   }
