@@ -23,9 +23,9 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   PageController? pageController;
   int selectedIndex = 0;
   final List<Widget> _children = [
-    const HomeTab(),
-    const TrendingTab(),
     const CategoryTab(),
+    const TrendingTab(),
+    const HomeTab(),
   ];
 
   Future<void> userLogout() async {

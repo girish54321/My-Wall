@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
-import 'package:reqres_app/app.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
@@ -53,7 +52,7 @@ class _ImageViewState extends State<ImageView> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Helper().goBack();
           },

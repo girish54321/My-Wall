@@ -1,4 +1,4 @@
-enum UnSplashAPIPath { home, users, token, topics }
+enum UnSplashAPIPath { home, users, token, topics, search }
 
 class UnSplashAPIPathHelper {
   static String getValue(UnSplashAPIPath path) {
@@ -11,6 +11,8 @@ class UnSplashAPIPathHelper {
         return "/users";
       case UnSplashAPIPath.token:
         return "oauth/token";
+      case UnSplashAPIPath.search:
+        return "/search/photos";
       default:
         return "";
     }

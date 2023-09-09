@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/CategoryTabGetx.dart';
 import 'package:reqres_app/App/HomeScreen/CategoryTab/CategoryTabUI.dart';
-import 'package:reqres_app/App/HomeScreen/HomeScreenGtx/CategoryTabgGetx.dart';
 
 class CategoryTab extends StatefulWidget {
   const CategoryTab({Key? key}) : super(key: key);
@@ -15,7 +15,6 @@ class _CategoryTabState extends State<CategoryTab> {
   Widget build(BuildContext context) {
     final CategoryTabController categoryTabController =
         Get.put(CategoryTabController());
-
     return CategoryTabUI(
       categoryTabController: categoryTabController,
     );

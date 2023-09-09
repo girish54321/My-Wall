@@ -98,11 +98,13 @@ class UnSplashRemoteDataSource {
     }
   }
 
-  Future<Result> getTopicImages(String customBaseUrl) async {
+  Future<Result> getTopicImages(
+      String customBaseUrl, Map<String, String>? params) async {
     Result incomingData = Result.loading("Loading");
     try {
       final response = await client.request(
           requestType: RequestType.GET,
+          params: params,
           path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.topics),
           customBaseUrl: customBaseUrl);
       if (response.statusCode == 200 || response.statusCode == 201) {

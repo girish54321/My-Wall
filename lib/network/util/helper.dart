@@ -65,4 +65,12 @@ class Helper {
     String? code = uri.queryParameters['code'];
     return code;
   }
+
+  String queryParameters(Map<String, String> params) {
+    if (params != null) {
+      final jsonString = Uri(queryParameters: params);
+      return '?${jsonString.query}';
+    }
+    return '';
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reqres_app/App/HomeScreen/HomeScreenGtx/HomeTabGetx.dart';
+import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/HomeTabGetx.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTab/HomeTabUI.dart';
 
 class HomeTab extends StatefulWidget {

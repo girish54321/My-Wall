@@ -1,9 +1,8 @@
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:reqres_app/App/ImageView/imageView.dart';
-import 'package:reqres_app/App/TopicImagesScreen/topicImagesScreen.dart';
+import 'package:reqres_app/App/TopicImageScreen/TopicImageScreen.dart';
 import 'package:reqres_app/network/dataModel/topic.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/util/helper.dart';
@@ -11,18 +10,24 @@ import 'package:reqres_app/widget/appNetWorkImage%20copy.dart';
 
 class ImageList extends StatelessWidget {
   final List<UnsplashResponse?>? imageList;
-  final ScrollController scrollController;
+  final ScrollController? scrollController;
+  final bool isLoading;
   const ImageList({
     Key? key,
     required this.imageList,
     required this.scrollController,
+    required this.isLoading,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // if (imageList == null || imageList!.isEmpty) {
+    //   return const LoadingView();
+    // }
     return CustomRefreshIndicator(
       onRefresh: () {
-        return Future.delayed(Duration(seconds: 1), () {
+        // ignore: void_checks
+        return Future.delayed(const Duration(seconds: 1), () {
           return true;
         });
       },
@@ -43,10 +48,13 @@ class ImageList extends StatelessWidget {
         padding: const EdgeInsets.all(
           6.5,
         ),
-        itemCount: imageList?.length,
+        itemCount: imageList!.length + 1,
         gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2),
         itemBuilder: (context, index) {
+          if (index == imageList!.length) {
+            return const Center(child: CircularProgressIndicator());
+          }
           UnsplashResponse? item = imageList?[index];
           return InkWell(
             onTap: () {
@@ -68,9 +76,11 @@ class ImageList extends StatelessWidget {
 
 class TopicsList extends StatelessWidget {
   final List<Topics?>? topicList;
+  final bool isLoading;
   const TopicsList({
     Key? key,
     required this.topicList,
+    required this.isLoading,
   }) : super(key: key);
 
   @override
@@ -88,8 +98,13 @@ class TopicsList extends StatelessWidget {
         Topics? item = topicList?[index];
         return InkWell(
           onTap: () {
+            // Get.to(TopicImagesScreen(topics: item));
             Helper().goToPage(
-                context: context, child: TopicImagesScreen(topics: item));
+                context: context,
+                child: TopicImageScreen(
+                  topics: item!,
+                ));
+            // Get.to(() => TopicImagesScreen(topics: item));
           },
           child: Stack(
             children: [

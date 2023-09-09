@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:reqres_app/App/SettingsScreen/SettingsScreen.dart';
-import 'package:reqres_app/App/searchedImagePage.dart';
+import 'package:reqres_app/App/SearchSceen/searchedImagePage.dart';
 import 'package:reqres_app/AppConst/widgetList.dart';
 import 'package:reqres_app/network/util/helper.dart';
 
