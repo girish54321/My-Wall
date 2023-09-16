@@ -35,6 +35,7 @@
 		C571C40F589911FF86F926C0 /* mywall_qaProfile.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0C56FFE7E9AB6E2D26830101 /* mywall_qaProfile.xcconfig */; };
 		D292D115B32EC74F1E3CCE34 /* reqresLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9811F8BBC0CEDC9CE3D2611F /* reqresLaunchScreen.storyboard */; };
 		D33180E678B1B032A0FB41F4 /* mywall_devProfile.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 5F227F9A2262A5A49EC61E05 /* mywall_devProfile.xcconfig */; };
+		F402A9712AACD9BA00197683 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = F402A9702AACD99500197683 /* libsqlite3.tbd */; };
 		F53826E12C539F655640A326 /* mywall_qaLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F97BD0CAE07EFC3D1DCC3624 /* mywall_qaLaunchScreen.storyboard */; };
 		FE12843207148238D4889863 /* reqres_devProfile.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 9F2801970A3CA1735F667C61 /* reqres_devProfile.xcconfig */; };
 		FE4A644DAD86DC232104FF8A /* mywall_qaRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 073768847E0B83E1BD089AFF /* mywall_qaRelease.xcconfig */; };
@@ -109,6 +110,7 @@
 		E5B0FDEB145CC7B0F5EE7B6F /* mywallLaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = mywallLaunchScreen.storyboard; path = Runner/mywallLaunchScreen.storyboard; sourceTree = "<group>"; };
 		EBEB80A87097B813F75C2A7E /* reqres_devDebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = reqres_devDebug.xcconfig; path = Flutter/reqres_devDebug.xcconfig; sourceTree = "<group>"; };
 		F0BF4866A75823F786AAE7E1 /* Pods-Runner.profile-mywall_qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-mywall_qa.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-mywall_qa.xcconfig"; sourceTree = "<group>"; };
+		F402A9702AACD99500197683 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		F6AEA1117AF91E25A66710A3 /* reqres_devRelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = reqres_devRelease.xcconfig; path = Flutter/reqres_devRelease.xcconfig; sourceTree = "<group>"; };
 		F6CA50FF686E4400B684E2CA /* reqresProfile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = reqresProfile.xcconfig; path = Flutter/reqresProfile.xcconfig; sourceTree = "<group>"; };
 		F97BD0CAE07EFC3D1DCC3624 /* mywall_qaLaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = mywall_qaLaunchScreen.storyboard; path = Runner/mywall_qaLaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F402A9712AACD9BA00197683 /* libsqlite3.tbd in Frameworks */,
 				88A7C23FEC1FE4A83E36350D /* Pods_Runner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,6 +230,7 @@
 		E12C0311B53D4279A2004DC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F402A9702AACD99500197683 /* libsqlite3.tbd */,
 				3DDB00CEFAB7C5C12D79B7E7 /* Pods_Runner.framework */,
 			);
 			name = Frameworks;

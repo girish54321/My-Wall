@@ -1,5 +1,7 @@
 PODS:
   - Flutter (1.0.0)
+  - flutter_downloader (0.0.1):
+    - Flutter
   - flutter_inappwebview (0.0.1):
     - Flutter
     - flutter_inappwebview/Core (= 0.0.1)
@@ -26,6 +28,7 @@ PODS:
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
+  - flutter_downloader (from `.symlinks/plugins/flutter_downloader/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - fluttertoast (from `.symlinks/plugins/fluttertoast/ios`)
   - image_downloader (from `.symlinks/plugins/image_downloader/ios`)
@@ -41,6 +44,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   Flutter:
     :path: Flutter
+  flutter_downloader:
+    :path: ".symlinks/plugins/flutter_downloader/ios"
   flutter_inappwebview:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   fluttertoast:
@@ -54,6 +59,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_downloader: b7301ae057deadd4b1650dc7c05375f10ff12c39
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   fluttertoast: fafc4fa4d01a6a9e4f772ecd190ffa525e9e2d9c
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a

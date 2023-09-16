@@ -15,6 +15,22 @@ class _TrendingTabState extends State<TrendingTab> {
   final TendingTabController tendingTabController =
       Get.put(TendingTabController());
 
+  void loadMoreImages() {
+    tendingTabController.getImage();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    scrollController.addListener(() {
+      if (scrollController.offset >=
+              scrollController.position.maxScrollExtent &&
+          !scrollController.position.outOfRange) {
+        loadMoreImages();
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return TrendingTabUI(

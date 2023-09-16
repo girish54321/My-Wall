@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:reqres_app/App/HomeScreen/CategoryTab/CategoryTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTab/HomeTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTabScreenUI.dart';
+import 'package:reqres_app/App/HomeScreen/SavedTab/SaveTabScreen.dart';
 import 'package:reqres_app/App/HomeScreen/TrendingTab/TrendingTab.dart';
 import 'package:reqres_app/widget/DialogHelper.dart';
 
@@ -26,6 +27,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     const HomeTab(),
     const TrendingTab(),
     const CategoryTab(),
+    const SaveTabScreen(),
   ];
 
   Future<void> userLogout() async {

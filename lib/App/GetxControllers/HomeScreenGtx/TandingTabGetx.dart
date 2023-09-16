@@ -6,7 +6,8 @@ import 'package:reqres_app/network/unsplash_data_source.dart';
 class TendingTabController extends GetxController {
   //* Active Trips
   //* History Trips
-  RxBool homeScreenLoading = true.obs;
+  RxBool homeScreenLoading = false.obs;
+  RxInt pageNumber = RxInt(1);
   RxList<UnsplashResponse> tendingImages = RxList<UnsplashResponse>([]);
 
   final UnSplashRemoteDataSource _apiResponse = UnSplashRemoteDataSource();
@@ -23,13 +24,22 @@ class TendingTabController extends GetxController {
   }
 
   void getImage() {
-    var parameter = {"order_by": "popular", "per_page": "15"};
+    if (homeScreenLoading.value == true) {
+      return;
+    }
+    homeScreenLoading.value = true;
+    var parameter = {
+      "order_by": "popular",
+      "per_page": "15",
+      "page": pageNumber.value.toString()
+    };
     Future<Result> result = _apiResponse.getHomeScreenImage(parameter);
     result.then((value) {
       homeScreenLoading.value = false;
       if (value is SuccessState) {
         var res = value.value as List<UnsplashResponse>;
-        tendingImages.value = res;
+        tendingImages.addAll(res);
+        pageNumber.value = pageNumber.value + 1;
       } else {}
     });
   }

@@ -54,36 +54,62 @@ class _ImageViewState extends State<ImageView> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Helper().goBack();
-          },
-        ),
-      ),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: OctoImage(
-          image: CachedNetworkImageProvider(
-            widget.unPlashResponse?.urls?.small ?? "",
+      body: Stack(
+        children: [
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            child: OctoImage(
+              image: CachedNetworkImageProvider(
+                widget.unPlashResponse?.urls?.small ?? "",
+              ),
+              errorBuilder: OctoError.icon(color: Colors.red),
+              fit: BoxFit.contain,
+            ),
           ),
-          errorBuilder: OctoError.icon(color: Colors.red),
-          fit: BoxFit.contain,
-        ),
+          SafeArea(
+              child: IconButton(
+                  onPressed: () {
+                    Helper().goBack();
+                  },
+                  icon: const Icon(Icons.close)))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.download),
         onPressed: () async {
-          final Directory? downloadsDir = await getDownloadsDirectory();
+          final Directory? downloadsDir =
+              await getApplicationDocumentsDirectory();
+          // final Directory? downloadsDir = await getDownloadsDirectory();
+          print(downloadsDir?.path);
+          final Directory savedDir = Directory(downloadsDir?.path ?? "");
+
+          // if (!savedDir.existsSync()) {
+          //   // The directory doesn't exist, create it
+          //   savedDir.createSync(
+          //       recursive:
+          //           true); // Use recursive: true to create parent directories if they don't exist
+          //   final taskId = await FlutterDownloader.enqueue(
+          //       url: widget.unPlashResponse?.urls?.regular ?? "",
+          //       savedDir: downloadsDir!.path,
+          //       fileName: "${Helper().getFileName(5)}.png",
+          //       showNotification:
+          //           true, // show download progress in status bar (for Android)
+          //       openFileFromNotification: true);
+          // }
           final taskId = await FlutterDownloader.enqueue(
               url: widget.unPlashResponse?.urls?.regular ?? "",
               savedDir: downloadsDir!.path,
-              fileName: Helper().getFileName(5),
+              saveInPublicStorage: true,
+              fileName: "${Helper().getFileName(5)}.png",
               showNotification:
                   true, // show download progress in status bar (for Android)
               openFileFromNotification: true);
+          const snackBar = SnackBar(
+            content: Text('Yay! Image Saved!'),
+          );
+
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
         },
       ),
     );

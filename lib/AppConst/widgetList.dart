@@ -10,6 +10,9 @@ List<Widget> mobileTabs = [
   Tab(
     text: "Category".toUpperCase(),
   ),
+  Tab(
+    text: "Saved".toUpperCase(),
+  ),
   // Tab(
   //   text: "Like".toUpperCase(),
   // ),
