@@ -56,7 +56,7 @@ class CategoryTabController extends GetxController {
     homeScreenLoading.value = true;
     var parameter = {
       "order_by": "latest",
-      "per_page": "10",
+      "per_page": "30",
       "page": pageNumber.value.toString()
     };
     Future<Result> result = _apiResponse.getTopics(parameter);
