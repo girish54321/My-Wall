@@ -27,7 +27,7 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
     const HomeTab(),
     const TrendingTab(),
     const CategoryTab(),
-    const SaveTabScreen(),
+    // const SaveTabScreen(),
   ];
 
   Future<void> userLogout() async {

@@ -11,7 +11,7 @@ class CategoryTabUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => TopicsList(
-        topicList: categoryTabController.topicList.value,
+        topicList: categoryTabController.topicList,
         isLoading: categoryTabController.homeScreenLoading.value));
   }
 }

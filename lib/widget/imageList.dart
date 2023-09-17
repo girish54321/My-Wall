@@ -88,6 +88,9 @@ class TopicsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (topicList == null || topicList!.isEmpty && isLoading) {
+      return const LoadingView();
+    }
     return MasonryGridView.builder(
       crossAxisSpacing: 6.5,
       mainAxisSpacing: 6.5,

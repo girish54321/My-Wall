@@ -13,7 +13,7 @@ class CategoryTabController extends GetxController {
   RxList<UnsplashResponse> topicImages = RxList<UnsplashResponse>([]);
   RxInt topicsPageNumber = RxInt(1);
 
-  Rx<RxList<Topics>> topicList = RxList<Topics>([]).obs;
+  RxList<Topics> topicList = RxList<Topics>([]);
   final UnSplashRemoteDataSource _apiResponse = UnSplashRemoteDataSource();
 
   @override
@@ -53,6 +53,7 @@ class CategoryTabController extends GetxController {
   }
 
   void getImage() {
+    homeScreenLoading.value = true;
     var parameter = {
       "order_by": "latest",
       "per_page": "10",
@@ -62,7 +63,7 @@ class CategoryTabController extends GetxController {
     result.then((value) {
       homeScreenLoading.value = false;
       if (value is SuccessState) {
-        topicList.value.addAll(value.value as Iterable<Topics>);
+        topicList.addAll(value.value);
         pageNumber.value = pageNumber.value + 1;
       } else {}
     });

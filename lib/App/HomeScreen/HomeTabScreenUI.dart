@@ -11,7 +11,7 @@ class HomeTabScreenUI extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 4,
+        length: 3,
         child: Scaffold(
           appBar: AppBar(
             bottom: TabBar(

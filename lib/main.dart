@@ -6,6 +6,7 @@ import 'package:reqres_app/App/auth/login/loginScreen.dart';
 import 'package:reqres_app/AppConst/AppConst.dart';
 import 'package:reqres_app/flavors.dart';
 import 'package:reqres_app/state/settingsState.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 // For rootBundle
 
 class MyWallApp extends StatelessWidget {
@@ -18,25 +19,32 @@ class MyWallApp extends StatelessWidget {
     GetStorage box = GetStorage();
     GetInstance().put<SettingController>(SettingController());
     String jwt = box.read(JWT_KEY) ?? "";
-    return GetMaterialApp(
-      title: 'Flutter Demo',
-      themeMode: ThemeMode.system,
-      darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          useMaterial3: true,
-          scaffoldBackgroundColor: Colors.black),
-      theme: ThemeData(useMaterial3: true),
-      getPages: [
-        GetPage(
-          name: '/',
-          page: () {
-            return jwt.isNotEmpty
-                ? _wrapWithBanner(const HomeTabScreen())
-                : _wrapWithBanner(const LoginScreen());
-          },
-        ),
-      ],
-    );
+    return DynamicColorBuilder(
+        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+      return GetMaterialApp(
+        title: 'Flutter Demo',
+        themeMode: ThemeMode.system,
+        darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            useMaterial3: true,
+            colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
+            scaffoldBackgroundColor: Colors.black),
+        theme: ThemeData(
+            useMaterial3: true,
+            colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
+            brightness: Brightness.light),
+        getPages: [
+          GetPage(
+            name: '/',
+            page: () {
+              return jwt.isNotEmpty
+                  ? _wrapWithBanner(const HomeTabScreen())
+                  : _wrapWithBanner(const LoginScreen());
+            },
+          ),
+        ],
+      );
+    });
   }
 
   /// Adds banner to the [child] widget.
