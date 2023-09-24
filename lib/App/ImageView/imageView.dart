@@ -58,6 +58,7 @@ class _ImageViewState extends State<ImageView> {
       body: Stack(
         children: [
           ListView(
+            padding: const EdgeInsets.only(top: 0),
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:reqres_app/App/GetxControllers/AppGetxController.dart';
+import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/HomeTabGetx.dart';
+import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/TandingTabGetx.dart';
 import 'package:reqres_app/App/HomeScreen/CategoryTab/CategoryTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTab/HomeTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTabScreenUI.dart';
@@ -19,9 +23,16 @@ class HomeTabScreen extends StatefulWidget {
   State<HomeTabScreen> createState() => _HomeTabScreenState();
 }
 
-class _HomeTabScreenState extends State<HomeTabScreen> {
-  PageController? pageController;
-  int selectedIndex = 0;
+class _HomeTabScreenState extends State<HomeTabScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController tabController;
+  final AppGetxController appGetxController = Get.put(AppGetxController());
+  final ScrollController _scrollController = ScrollController();
+
+  final HomeTabController homeController = Get.put(HomeTabController());
+  final TendingTabController tendingTabController =
+      Get.put(TendingTabController());
+
   final List<Widget> _children = [
     const HomeTab(),
     const TrendingTab(),
@@ -42,11 +53,50 @@ class _HomeTabScreenState extends State<HomeTabScreen> {
   @override
   void initState() {
     super.initState();
+    tabController = TabController(vsync: this, length: 3);
+    tabController.addListener(_handleTabSelection);
+    _scrollController.addListener(() {
+      if (_scrollController.offset >=
+              _scrollController.position.maxScrollExtent &&
+          !_scrollController.position.outOfRange) {
+        loadMoreImages();
+      }
+    });
+  }
+
+  _handleTabSelection() {
+    if (tabController.indexIsChanging) {
+      setState(() {
+        tabController = tabController.index as TabController;
+      });
+      appGetxController.tabIndex(tabController.index);
+    }
+  }
+
+  void loadMoreImages() {
+    int activeIndex = appGetxController.tabIndex.value;
+    if (activeIndex == 0) {
+      homeController.getImage();
+    }
+    if (activeIndex == 1) {
+      tendingTabController.getImage();
+    }
+
+    if (activeIndex == 2) {}
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return HomeTabScreenUI(
+      scrollController: _scrollController,
+      tabController: tabController,
       children: _children,
     );
   }

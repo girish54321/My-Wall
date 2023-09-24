@@ -1,4 +1,3 @@
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:reqres_app/App/ImageView/imageView.dart';
@@ -25,54 +24,39 @@ class ImageList extends StatelessWidget {
     if (imageList == null || imageList!.isEmpty && isLoading) {
       return const LoadingView();
     }
-    return CustomRefreshIndicator(
-      onRefresh: () {
-        // ignore: void_checks
-        return Future.delayed(const Duration(seconds: 1), () {
-          return true;
-        });
-      },
-      builder: MaterialIndicatorDelegate(
-        builder: (context, controller) {
-          return const Icon(
-            Icons.image,
-            color: Colors.white,
-            size: 30,
-          );
-        },
-      ),
-      child: MasonryGridView.builder(
-        shrinkWrap: true,
-        crossAxisSpacing: 6.5,
-        controller: scrollController,
-        mainAxisSpacing: 6.5,
-        padding: const EdgeInsets.all(
-          6.5,
-        ),
-        itemCount: imageList!.length + 1,
-        gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2),
-        itemBuilder: (context, index) {
-          if (index == imageList!.length) {
-            return isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : const Text("");
-          }
-          UnsplashResponse? item = imageList?[index];
-          return InkWell(
-            onTap: () {
-              Helper().goToPage(
-                  context: context, child: ImageView(unPlashResponse: item));
+    return CustomScrollView(
+      slivers: [
+        SliverPadding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          sliver: SliverMasonryGrid.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 8,
+            crossAxisSpacing: 8,
+            childCount: imageList!.length + 1,
+            itemBuilder: (context, index) {
+              if (index == imageList!.length) {
+                return isLoading
+                    ? const Center(child: CircularProgressIndicator())
+                    : const Text("");
+              }
+              UnsplashResponse? item = imageList?[index];
+              return InkWell(
+                onTap: () {
+                  Helper().goToPage(
+                      context: context,
+                      child: ImageView(unPlashResponse: item));
+                },
+                child: AppNetWorkImage(
+                  blurHash: item?.blurHash ?? "",
+                  height: item?.height ?? 10,
+                  imageUrl: item?.urls?.small ?? "",
+                  width: item?.width ?? 11,
+                ),
+              );
             },
-            child: AppNetWorkImage(
-              blurHash: item?.blurHash ?? "",
-              height: item?.height ?? 10,
-              imageUrl: item?.urls?.small ?? "",
-              width: item?.width ?? 11,
-            ),
-          );
-        },
-      ),
+          ),
+        )
+      ],
     );
   }
 }

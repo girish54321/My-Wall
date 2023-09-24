@@ -6,43 +6,66 @@ import 'package:reqres_app/network/util/helper.dart';
 
 class HomeTabScreenUI extends StatelessWidget {
   final List<Widget> children;
-  const HomeTabScreenUI({Key? key, required this.children}) : super(key: key);
+  final TabController tabController;
+  final ScrollController scrollController;
+  const HomeTabScreenUI(
+      {Key? key,
+      required this.children,
+      required this.tabController,
+      required this.scrollController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: TabBar(
-              tabs: mobileTabs,
-            ),
-            leading: IconButton(
-                icon: const Icon(
-                  Icons.info_outline,
+      length: 3,
+      child: Scaffold(
+        body: NestedScrollView(
+          controller: scrollController,
+          floatHeaderSlivers: true,
+          headerSliverBuilder: ((context, innerBoxIsScrolled) {
+            return [
+              SliverAppBar(
+                actions: [
+                  IconButton(
+                      icon: const Icon(
+                        Icons.search,
+                      ),
+                      onPressed: () {
+                        Helper().goToPage(
+                            context: context, child: SearchedImagePage());
+                      }),
+                ],
+                leading: IconButton(
+                    icon: const Icon(
+                      Icons.info_outline,
+                    ),
+                    onPressed: () {
+                      Helper()
+                          .goToPage(context: context, child: SettingsScreen());
+                    }),
+                pinned: true,
+                snap: true,
+                floating: true,
+                title: const Text("My Wall"),
+                centerTitle: true,
+                bottom: TabBar(
+                  controller: tabController,
+                  tabs: <Widget>[
+                    ...mobileTabs,
+                  ],
                 ),
-                onPressed: () {
-                  Helper().goToPage(context: context, child: SettingsScreen());
-                }),
-            centerTitle: true,
-            elevation: 0.0,
-            title: const Text("My Wall"),
-            actions: [
-              IconButton(
-                  icon: const Icon(
-                    Icons.search,
-                  ),
-                  onPressed: () {
-                    Helper()
-                        .goToPage(context: context, child: SearchedImagePage());
-                  }),
-            ],
-          ),
+              )
+            ];
+          }),
           body: TabBarView(
+            controller: tabController,
             children: <Widget>[
               ...children,
             ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
