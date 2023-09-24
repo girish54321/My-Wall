@@ -59,5 +59,5 @@ Clone the project
 ## Create APK
 
 ```bash
-  flutter build apk --release -t lib/main-reqres.dart --flavor reqres
+  flutter build apk --release -t lib/main_mywall_dev.dart --flavor mywall_dev
 ```

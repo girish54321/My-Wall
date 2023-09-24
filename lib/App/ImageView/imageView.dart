@@ -1,14 +1,13 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:reqres_app/App/ImageView/FullImageView.dart';
 import 'package:reqres_app/App/ProfileScreen/ProfileScreen.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
+import 'package:reqres_app/widget/downloadButton.dart';
 
 const style = TextStyle(color: Colors.white);
 
@@ -52,23 +51,6 @@ class _ImageViewState extends State<ImageView> {
     Navigator.pop(context);
   }
 
-  Future<void> startDownload() async {
-    //     await getApplicationDocumentsDirectory();
-    final Directory? downloadsDir = await getDownloadsDirectory();
-    await FlutterDownloader.enqueue(
-        url: widget.unPlashResponse?.urls?.regular ?? "",
-        savedDir: downloadsDir!.path,
-        // saveInPublicStorage: true,
-        fileName: "${Helper().getFileName(5)}.png",
-        showNotification:
-            true, // show download progress in status bar (for Android)
-        openFileFromNotification: true);
-    const snackBar = SnackBar(
-      content: Text('Yay! Image Saved!'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,13 +61,20 @@ class _ImageViewState extends State<ImageView> {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height - 60,
-                child: OctoImage(
-                  image: CachedNetworkImageProvider(
-                    widget.unPlashResponse?.urls?.small ?? "",
+                child: InkWell(
+                  onTap: () {
+                    Helper().goToPage(
+                        context: context,
+                        child: FullImageView(
+                            unPlashResponse: widget.unPlashResponse));
+                  },
+                  child: OctoImage(
+                    image: CachedNetworkImageProvider(
+                      widget.unPlashResponse?.urls?.small ?? "",
+                    ),
+                    errorBuilder: OctoError.icon(color: Colors.red),
+                    fit: BoxFit.contain,
                   ),
-                  errorBuilder: OctoError.icon(color: Colors.red),
-                  fit: BoxFit.contain,
                 ),
               ),
               Padding(
@@ -93,9 +82,12 @@ class _ImageViewState extends State<ImageView> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.unPlashResponse?.description ?? "",
-                        style: style,
+                      Padding(
+                        padding: const EdgeInsets.only(top: 14.0),
+                        child: Text(
+                          widget.unPlashResponse?.description ?? "",
+                          style: style,
+                        ),
                       ),
                       const Divider(),
                       ListTile(
@@ -128,42 +120,43 @@ class _ImageViewState extends State<ImageView> {
               ),
             ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 14,
-            ),
-            child: Row(
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Helper().goBack();
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    )),
-                Row(
-                  children: [
-                    const Icon(Icons.thumb_up, color: Colors.white),
-                    const SizedBox(
-                      width: 6,
-                    ),
-                    Text(
-                      widget.unPlashResponse?.likes.toString() ?? "",
-                      style: style,
-                    ),
-                  ],
-                )
-              ],
+          SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+              ),
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        Helper().goBack();
+                      },
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      )),
+                  Row(
+                    children: [
+                      const Icon(Icons.thumb_up, color: Colors.white),
+                      const SizedBox(
+                        width: 6,
+                      ),
+                      Text(
+                        widget.unPlashResponse?.likes.toString() ?? "",
+                        style: style,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.download),
-        onPressed: startDownload,
+      floatingActionButton: DownloadButton(
+        url: widget.unPlashResponse?.urls?.regular ?? "",
       ),
     );
   }

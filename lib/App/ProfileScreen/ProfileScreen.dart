@@ -137,6 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // backgroundColor: Colors.red,
       body: SafeArea(
         child: DefaultTabController(
           length: 3,
@@ -147,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 SliverAppBar(
                   collapsedHeight: 430,
                   expandedHeight: 370,
-                  title: const Text('Collapsible App Bar Example'),
+                  title: Text(widget.user?.name ?? ''),
                   floating: false,
                   flexibleSpace: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -181,11 +182,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   floating: false,
                   delegate: _SliverAppBarDelegate(
                     TabBar(
-                      // labelColor: Colors.white,
                       tabs: [
-                        Tab(text: 'Tab 1'),
-                        Tab(text: 'Tab 2'),
-                        Tab(text: 'Tab 3'),
+                        Tab(text: 'All Phots'.toUpperCase(), height: 60),
+                        Tab(text: 'Collection'.toUpperCase(), height: 60),
+                        Tab(text: 'Likes'.toUpperCase(), height: 60),
                       ],
                     ),
                   ),
@@ -225,10 +225,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   //     child: ImageView(unPlashResponse: item));
                 },
                 child: AppNetWorkImage(
-                  blurHash: item?.blurHash ?? "",
-                  height: item?.height ?? 10,
-                  imageUrl: item?.urls?.small ?? "",
-                  width: item?.width ?? 11,
+                  blurHash: item.blurHash ?? "",
+                  height: item.height ?? 10,
+                  imageUrl: item.urls?.small ?? "",
+                  width: item.width ?? 11,
                 ),
               );
             },
@@ -279,7 +279,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: _tabBar,
     );
   }
