@@ -25,6 +25,7 @@ class ImageList extends StatelessWidget {
       return const LoadingView();
     }
     return CustomScrollView(
+      controller: scrollController,
       slivers: [
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 8),

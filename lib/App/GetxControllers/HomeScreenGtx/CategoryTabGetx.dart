@@ -33,6 +33,9 @@ class CategoryTabController extends GetxController {
   }
 
   void getTopicsImages(String id) {
+    if (topicListLoading.value == true) {
+      return;
+    }
     var parameter = {
       "page": topicsPageNumber.value.toString(),
       "per_page": "10",
