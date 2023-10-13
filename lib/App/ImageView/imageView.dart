@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
 import 'package:reqres_app/App/ImageView/FullImageView.dart';
@@ -8,8 +11,6 @@ import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
 import 'package:reqres_app/widget/downloadButton.dart';
-
-const style = TextStyle(color: Colors.white);
 
 class ImageView extends StatefulWidget {
   final UnsplashResponse? unPlashResponse;
@@ -54,7 +55,6 @@ class _ImageViewState extends State<ImageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Stack(
         children: [
           ListView(
@@ -87,32 +87,30 @@ class _ImageViewState extends State<ImageView> {
                         padding: const EdgeInsets.only(top: 14.0),
                         child: Text(
                           widget.unPlashResponse?.description ?? "",
-                          style: style,
                         ),
                       ),
-                      const Divider(),
-                      ListTile(
-                        onTap: (() {
-                          Helper().goToPage(
-                              context: context,
-                              child: ProfileScreen(
-                                  user: widget.unPlashResponse?.user));
-                        }),
-                        contentPadding: const EdgeInsets.only(top: 8),
-                        title: Text(
-                          widget.unPlashResponse?.user?.name ?? "",
-                          style: style,
-                        ),
-                        leading: CircleAvatar(
-                          backgroundImage: NetworkImage(widget.unPlashResponse
-                                  ?.user?.profileImage?.medium ??
-                              ""),
-                        ),
-                      ),
+                      // const Divider(),
+                      // ListTile(
+                      //   onTap: (() {
+                      //     Helper().goToPage(
+                      //         context: context,
+                      //         child: ProfileScreen(
+                      //             user: widget.unPlashResponse?.user));
+                      //   }),
+                      //   contentPadding: const EdgeInsets.only(top: 8),
+                      //   title: Text(
+                      //     widget.unPlashResponse?.user?.name ?? "",
+                      //     style: style,
+                      //   ),
+                      //   leading: CircleAvatar(
+                      //     backgroundImage: NetworkImage(widget.unPlashResponse
+                      //             ?.user?.profileImage?.medium ??
+                      //         ""),
+                      //   ),
+                      // ),
                       const Divider(),
                       Text(
                         widget.unPlashResponse?.user?.bio ?? "",
-                        style: style,
                       ),
                       const SizedBox(
                         height: 42,
@@ -127,15 +125,16 @@ class _ImageViewState extends State<ImageView> {
                 horizontal: 14,
               ),
               child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
                       onPressed: () {
                         Helper().goBack();
                       },
-                      icon: const Icon(
-                        Icons.close,
+                      icon: Icon(
+                        Platform.isAndroid
+                            ? Icons.arrow_back
+                            : Icons.arrow_back_ios,
                         color: Colors.white,
                       )),
                   Row(
@@ -146,7 +145,6 @@ class _ImageViewState extends State<ImageView> {
                       ),
                       Text(
                         widget.unPlashResponse?.likes.toString() ?? "",
-                        style: style,
                       ),
                     ],
                   )

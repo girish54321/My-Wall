@@ -17,50 +17,36 @@ class HomeTabScreenUI extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        body: NestedScrollView(
-          controller: scrollController,
-          // floatHeaderSlivers: true,
-          headerSliverBuilder: ((context, innerBoxIsScrolled) {
-            return [
-              SliverAppBar(
-                actions: [
-                  IconButton(
-                      icon: const Icon(
-                        Icons.search,
-                      ),
-                      onPressed: () {
-                        Helper().goToPage(
-                            context: context, child: const SearchedImagePage());
-                      }),
-                ],
-                leading: IconButton(
-                    icon: const Icon(
-                      Icons.info_outline,
-                    ),
-                    onPressed: () {
-                      Helper().goToPage(
-                          context: context, child: const SettingsScreen());
-                    }),
-                pinned: true,
-                snap: true,
-                floating: true,
-                title: const Text("My Wall2"),
-                centerTitle: true,
-                bottom: TabBar(
-                  controller: tabController,
-                  tabs: mobileTabs,
-                ),
-              )
-            ];
-          }),
-          body: TabBarView(
-            controller: tabController,
-            children: children,
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: const Icon(
+                Icons.search,
+              ),
+              onPressed: () {
+                Helper().goToPage(
+                    context: context, child: const SearchedImagePage());
+              }),
+        ],
+        leading: IconButton(
+            icon: const Icon(
+              Icons.info_outline,
+            ),
+            onPressed: () {
+              Helper()
+                  .goToPage(context: context, child: const SettingsScreen());
+            }),
+        title: const Text("My Wall2"),
+        centerTitle: true,
+        bottom: TabBar(
+          controller: tabController,
+          tabs: mobileTabs,
         ),
+      ),
+      body: TabBarView(
+        controller: tabController,
+        children: children,
       ),
     );
   }

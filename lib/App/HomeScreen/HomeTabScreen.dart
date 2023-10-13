@@ -69,20 +69,11 @@ class _HomeTabScreenState extends State<HomeTabScreen>
       setState(() {
         tabController = tabController;
       });
-      appGetxController.tabIndex(tabController.index);
     }
   }
 
   void loadMoreImages() {
-    int activeIndex = appGetxController.tabIndex.value;
-    if (activeIndex == 0) {
-      homeController.getImage();
-    }
-    if (activeIndex == 1) {
-      tendingTabController.getImage();
-    }
-
-    if (activeIndex == 2) {}
+    homeController.getImage();
   }
 
   @override
