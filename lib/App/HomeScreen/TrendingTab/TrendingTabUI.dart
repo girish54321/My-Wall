@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/TandingTabGetx.dart';
+import 'package:reqres_app/GetxControllers/TandingTabGetx.dart';
 import 'package:reqres_app/widget/imageList.dart';
 
 class TrendingTabUI extends StatelessWidget {

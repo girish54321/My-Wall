@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:reqres_app/App/GetxControllers/AppGetxController.dart';
-import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/HomeTabGetx.dart';
-import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/TandingTabGetx.dart';
+import 'package:reqres_app/GetxControllers/AppGetxController.dart';
+import 'package:reqres_app/GetxControllers/HomeTabGetx.dart';
+import 'package:reqres_app/GetxControllers/TandingTabGetx.dart';
 import 'package:reqres_app/App/HomeScreen/CategoryTab/CategoryTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTab/HomeTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTabScreenUI.dart';
@@ -67,7 +67,7 @@ class _HomeTabScreenState extends State<HomeTabScreen>
   _handleTabSelection() {
     if (tabController.indexIsChanging) {
       setState(() {
-        tabController = tabController.index as TabController;
+        tabController = tabController;
       });
       appGetxController.tabIndex(tabController.index);
     }

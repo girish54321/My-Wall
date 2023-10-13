@@ -5,7 +5,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:reqres_app/App/ProfileScreen/ProfileScreen.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
@@ -16,7 +15,8 @@ const style = TextStyle(color: Colors.white);
 class FullImageView extends StatefulWidget {
   final UnsplashResponse? unPlashResponse;
 
-  const FullImageView({required this.unPlashResponse});
+  const FullImageView({Key? key, required this.unPlashResponse})
+      : super(key: key);
 
   @override
   _ImageViewState createState() => _ImageViewState();

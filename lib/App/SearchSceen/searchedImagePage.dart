@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reqres_app/App/GetxControllers/SearchScreenGtx/SearchScreenController.dart';
+import 'package:reqres_app/GetxControllers/SearchScreenController.dart';
 import 'package:reqres_app/widget/imageList.dart';
 
 class SearchedImagePage extends StatefulWidget {
+  const SearchedImagePage({Key? key}) : super(key: key);
+
   @override
   _SearchedImagePageState createState() => _SearchedImagePageState();
 }

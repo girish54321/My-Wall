@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/network/util/helper.dart';
-import 'package:reqres_app/state/settingsState.dart';
 
 class SettingsScreen extends StatefulWidget {
-  SettingsScreen({Key? key}) : super(key: key);
+  const SettingsScreen({Key? key}) : super(key: key);
 
   @override
   State<SettingsScreen> createState() => _SettingsScreenState();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/CategoryTabGetx.dart';
+import 'package:reqres_app/GetxControllers/CategoryTabGetx.dart';
 import 'package:reqres_app/App/TopicImageScreen/TopicImageScreenUI.dart';
 import 'package:reqres_app/network/dataModel/topic.dart';
 

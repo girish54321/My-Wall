@@ -1,8 +1,8 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:reqres_app/GetxControllers/userListState.dart';
 import 'package:reqres_app/network/model/userListModal.dart';
-import 'package:reqres_app/state/userListState.dart';
 
 class UserInfoScreenUI extends StatelessWidget {
   const UserInfoScreenUI({Key? key}) : super(key: key);

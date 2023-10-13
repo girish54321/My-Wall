@@ -40,7 +40,6 @@ class CategoryTabController extends GetxController {
       "page": topicsPageNumber.value.toString(),
       "per_page": "10",
     };
-    print(parameter);
     topicListLoading.value = true;
     var params = Helper().queryParameters(parameter);
     String url = "https://api.unsplash.com/topics/$id/photos" + params;

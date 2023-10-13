@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:reqres_app/App/GetxControllers/HomeScreenGtx/HomeTabGetx.dart';
+import 'package:reqres_app/GetxControllers/HomeTabGetx.dart';
 import 'package:reqres_app/widget/imageList.dart';
 
 class HomeTabUI extends StatelessWidget {

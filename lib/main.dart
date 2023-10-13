@@ -4,8 +4,8 @@ import 'package:reqres_app/App/HomeScreen/HomeTabScreen.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/App/auth/login/loginScreen.dart';
 import 'package:reqres_app/AppConst/AppConst.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/flavors.dart';
-import 'package:reqres_app/state/settingsState.dart';
 import 'package:dynamic_color/dynamic_color.dart';
 // For rootBundle
 

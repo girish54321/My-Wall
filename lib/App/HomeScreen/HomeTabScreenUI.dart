@@ -22,7 +22,7 @@ class HomeTabScreenUI extends StatelessWidget {
       child: Scaffold(
         body: NestedScrollView(
           controller: scrollController,
-          floatHeaderSlivers: true,
+          // floatHeaderSlivers: true,
           headerSliverBuilder: ((context, innerBoxIsScrolled) {
             return [
               SliverAppBar(
@@ -33,7 +33,7 @@ class HomeTabScreenUI extends StatelessWidget {
                       ),
                       onPressed: () {
                         Helper().goToPage(
-                            context: context, child: SearchedImagePage());
+                            context: context, child: const SearchedImagePage());
                       }),
                 ],
                 leading: IconButton(
@@ -41,28 +41,24 @@ class HomeTabScreenUI extends StatelessWidget {
                       Icons.info_outline,
                     ),
                     onPressed: () {
-                      Helper()
-                          .goToPage(context: context, child: SettingsScreen());
+                      Helper().goToPage(
+                          context: context, child: const SettingsScreen());
                     }),
                 pinned: true,
                 snap: true,
                 floating: true,
-                title: const Text("My Wall"),
+                title: const Text("My Wall2"),
                 centerTitle: true,
                 bottom: TabBar(
                   controller: tabController,
-                  tabs: <Widget>[
-                    ...mobileTabs,
-                  ],
+                  tabs: mobileTabs,
                 ),
               )
             ];
           }),
           body: TabBarView(
             controller: tabController,
-            children: <Widget>[
-              ...children,
-            ],
+            children: children,
           ),
         ),
       ),
