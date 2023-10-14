@@ -1,14 +1,22 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:filesize/filesize.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:progress_indicators/progress_indicators.dart';
 import 'package:reqres_app/App/auth/login/loginScreen.dart';
+import 'package:reqres_app/GetxControllers/SelectedImageGetx.dart';
+import 'package:reqres_app/network/model/UnPlashResponse.dart';
+import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/model/loading.dart';
+import 'package:reqres_app/responsive/enums/device_screen_type.dart';
+import 'package:reqres_app/responsive/utils/ui_utils.dart';
 import 'package:reqres_app/widget/DialogHelper.dart';
 
 class Helper {
@@ -25,6 +33,23 @@ class Helper {
         ),
       );
     }
+  }
+
+  getMobileOrientation(context) {
+    int cellCount = 4;
+    var mediaQuery = MediaQuery.of(context);
+    double deviceWidth = mediaQuery.size.shortestSide;
+    DeviceScreenType deviceScreenType = getDeviceType(mediaQuery);
+    var orientation = mediaQuery.orientation;
+    if (deviceScreenType == DeviceScreenType.Mobile) {
+      cellCount = orientation == Orientation.portrait ? 2 : 4;
+    } else if (deviceScreenType == DeviceScreenType.Tablet) {
+      cellCount = 8;
+    }
+    // } else if (deviceScreenType == DeviceScreenType.Desktop) {
+    //   cellCount = responsiveNumGridTiles(mediaQuery);
+    // }
+    return cellCount;
   }
 
   Future<void> userLogout(BuildContext context) async {
@@ -98,5 +123,65 @@ class Helper {
     var random = Random.secure();
     var values = List<int>.generate(len, (i) => random.nextInt(255));
     return base64UrlEncode(values);
+  }
+
+  void selectImage(UnsplashResponse data) {
+    final SelectedImageController selectedImageController =
+        Get.put(SelectedImageController());
+    selectedImageController.selectImage(data);
+  }
+
+  Future<void> startDownload(String url, BuildContext context) async {
+    final Directory? downloadsDir = await getDownloadsDirectory();
+    await FlutterDownloader.enqueue(
+        url: url,
+        savedDir: downloadsDir!.path,
+        // saveInPublicStorage: true,
+        fileName: "${Helper().getFileName(5)}.png",
+        showNotification:
+            true, // show download progress in status bar (for Android)
+        openFileFromNotification: true);
+    const snackBar = SnackBar(
+      content: Text('Yay! Image Saved!'),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    goBack();
+  }
+
+  void settingModalBottomSheet(context, List<DownloadOption> list) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(0.0),
+          ),
+        ),
+        builder: (BuildContext bc) {
+          return Wrap(
+            children: <Widget>[
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(),
+                  Padding(
+                    padding: EdgeInsets.only(left: 1, right: 1, top: 14),
+                    child: Text(
+                      "Download option",
+                      style:
+                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  SizedBox()
+                ],
+              ),
+              ...list.map(((e) {
+                return ListTile(
+                    title: Text(e.type),
+                    trailing: Text(filesize(e.fileSize)),
+                    onTap: () => {startDownload(e.url, context)});
+              })),
+            ],
+          );
+        });
   }
 }

@@ -5,8 +5,8 @@ import 'package:reqres_app/network/search_data_source.dart';
 
 class SearchScreenController extends GetxController {
   RxInt pageNumber = RxInt(1);
-  RxBool homeScreenLoading = false.obs;
-  RxList<UnsplashResponse> homeScreenImage = RxList<UnsplashResponse>([]);
+  RxBool searchScreenLoading = false.obs;
+  RxList<UnsplashResponse> searchScreenImage = RxList<UnsplashResponse>([]);
   final SearchRemoteDataSource _apiResponse = SearchRemoteDataSource();
 
   @override
@@ -20,12 +20,12 @@ class SearchScreenController extends GetxController {
   }
 
   void clearState() {
-    homeScreenImage.clear();
+    searchScreenImage.clear();
     pageNumber.value = 1;
   }
 
   void getImage(String searchQuery) {
-    homeScreenLoading.value = true;
+    searchScreenLoading.value = true;
     var parameter = {
       "query": searchQuery,
       "per_page": "10",
@@ -33,10 +33,10 @@ class SearchScreenController extends GetxController {
     };
     Future<Result> result = _apiResponse.getSearchImage(parameter);
     result.then((value) {
-      homeScreenLoading.value = false;
+      searchScreenLoading.value = false;
       if (value is SuccessState) {
         var res = value.value as List<UnsplashResponse>;
-        homeScreenImage.addAll(res);
+        searchScreenImage.addAll(res);
         pageNumber.value = pageNumber.value + 1;
       } else {}
     });

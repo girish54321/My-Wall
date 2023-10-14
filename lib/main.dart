@@ -27,11 +27,11 @@ class MyWallApp extends StatelessWidget {
         darkTheme: ThemeData(
             brightness: Brightness.dark,
             useMaterial3: true,
-            colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
+            // colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
             scaffoldBackgroundColor: Colors.black),
         theme: ThemeData(
             useMaterial3: true,
-            colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
+            // colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
             brightness: Brightness.light),
         getPages: [
           GetPage(

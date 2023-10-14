@@ -1,12 +1,7 @@
-import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
-import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
 import 'package:reqres_app/widget/downloadButton.dart';
 
@@ -22,52 +17,30 @@ class FullImageView extends StatefulWidget {
   _ImageViewState createState() => _ImageViewState();
 }
 
-class _ImageViewState extends State<FullImageView> {
-  List<DownloadOption> downloadOptionList = [];
+class _ImageViewState extends State<FullImageView>
+    with SingleTickerProviderStateMixin {
+  late TransformationController controller;
+  TapDownDetails? tapDownDetails;
 
-  createUrlList() async {
-    List urls = [
-      {
-        "type": "Small",
-        "url": widget.unPlashResponse?.urls?.small,
-      },
-      {
-        "type": "Regular",
-        "url": widget.unPlashResponse?.urls?.regular,
-      },
-      {
-        "type": "Full",
-        "url": widget.unPlashResponse?.urls?.full,
-      },
-      {"type": "Raw", "url": widget.unPlashResponse?.urls?.raw}
-    ];
+  late AnimationController animationController;
+  Animation<Matrix4>? animation;
 
-    for (var i = 0; i < urls.length; i++) {
-      http.Response r = await http.head(Uri.parse(urls[i]['url']));
-      DownloadOption downloadOption = DownloadOption(
-          urls[i]['url'], urls[i]['type'], r.headers["content-length"]!);
-      setState(() {
-        downloadOptionList.add(downloadOption);
+  @override
+  void initState() {
+    super.initState();
+    controller = TransformationController();
+    animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 200))
+      ..addListener(() {
+        controller.value = animation!.value;
       });
-    }
-    Navigator.pop(context);
   }
 
-  Future<void> startDownload() async {
-    //     await getApplicationDocumentsDirectory();
-    final Directory? downloadsDir = await getDownloadsDirectory();
-    await FlutterDownloader.enqueue(
-        url: widget.unPlashResponse?.urls?.regular ?? "",
-        savedDir: downloadsDir!.path,
-        // saveInPublicStorage: true,
-        fileName: "${Helper().getFileName(5)}.png",
-        showNotification:
-            true, // show download progress in status bar (for Android)
-        openFileFromNotification: true);
-    const snackBar = SnackBar(
-      content: Text('Yay! Image Saved!'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+    animationController.dispose();
   }
 
   @override
@@ -76,15 +49,41 @@ class _ImageViewState extends State<FullImageView> {
       backgroundColor: Colors.black,
       body: Stack(
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            child: OctoImage(
-              image: CachedNetworkImageProvider(
-                widget.unPlashResponse?.urls?.small ?? "",
+          GestureDetector(
+            onDoubleTapDown: ((details) => tapDownDetails = details),
+            onDoubleTap: () {
+              final position = tapDownDetails!.localPosition;
+              const double scale = 3;
+              final x = -position.dx * (scale - 1);
+              final y = -position.dy * (scale - 1);
+              final zoomed = Matrix4.identity()
+                ..translate(x, y)
+                ..scale(scale);
+              final end =
+                  controller.value.isIdentity() ? zoomed : Matrix4.identity();
+
+              animation = Matrix4Tween(begin: controller.value, end: end)
+                  .animate(CurveTween(curve: Curves.easeOut)
+                      .animate(animationController));
+              // controller.value = value;
+              animationController.forward(from: 0);
+            },
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              child: InteractiveViewer(
+                transformationController: controller,
+                // clipBehavior: Clip.none,
+                // panEnabled: false,
+                // scaleEnabled: false,
+                child: OctoImage(
+                  image: CachedNetworkImageProvider(
+                    widget.unPlashResponse?.urls?.regular ?? "",
+                  ),
+                  errorBuilder: OctoError.icon(color: Colors.red),
+                  fit: BoxFit.contain,
+                ),
               ),
-              errorBuilder: OctoError.icon(color: Colors.red),
-              fit: BoxFit.contain,
             ),
           ),
           SafeArea(

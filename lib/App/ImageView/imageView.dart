@@ -1,14 +1,9 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:octo_image/octo_image.dart';
 import 'package:reqres_app/App/ImageView/FullImageView.dart';
-import 'package:reqres_app/App/ProfileScreen/ProfileScreen.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
-import 'package:reqres_app/network/model/downloadOption.dart';
 import 'package:reqres_app/network/util/helper.dart';
 import 'package:reqres_app/widget/downloadButton.dart';
 
@@ -22,34 +17,9 @@ class ImageView extends StatefulWidget {
 }
 
 class _ImageViewState extends State<ImageView> {
-  List<DownloadOption> downloadOptionList = [];
-
-  createUrlList() async {
-    List urls = [
-      {
-        "type": "Small",
-        "url": widget.unPlashResponse?.urls?.small,
-      },
-      {
-        "type": "Regular",
-        "url": widget.unPlashResponse?.urls?.regular,
-      },
-      {
-        "type": "Full",
-        "url": widget.unPlashResponse?.urls?.full,
-      },
-      {"type": "Raw", "url": widget.unPlashResponse?.urls?.raw}
-    ];
-
-    for (var i = 0; i < urls.length; i++) {
-      http.Response r = await http.head(Uri.parse(urls[i]['url']));
-      DownloadOption downloadOption = DownloadOption(
-          urls[i]['url'], urls[i]['type'], r.headers["content-length"]!);
-      setState(() {
-        downloadOptionList.add(downloadOption);
-      });
-    }
-    Navigator.pop(context);
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -69,12 +39,14 @@ class _ImageViewState extends State<ImageView> {
                         child: FullImageView(
                             unPlashResponse: widget.unPlashResponse));
                   },
-                  child: OctoImage(
-                    image: CachedNetworkImageProvider(
-                      widget.unPlashResponse?.urls?.small ?? "",
+                  child: InteractiveViewer(
+                    child: OctoImage(
+                      image: CachedNetworkImageProvider(
+                        widget.unPlashResponse?.urls?.small ?? "",
+                      ),
+                      errorBuilder: OctoError.icon(color: Colors.red),
+                      fit: BoxFit.contain,
                     ),
-                    errorBuilder: OctoError.icon(color: Colors.red),
-                    fit: BoxFit.contain,
                   ),
                 ),
               ),
@@ -90,6 +62,7 @@ class _ImageViewState extends State<ImageView> {
                         ),
                       ),
                       // const Divider(),
+                      // TODO: User Profile View
                       // ListTile(
                       //   onTap: (() {
                       //     Helper().goToPage(

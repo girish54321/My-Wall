@@ -21,6 +21,8 @@ class ImageList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cellNumber = Helper().getMobileOrientation(context);
+
     if (imageList == null || imageList!.isEmpty && isLoading) {
       return const LoadingView();
     }
@@ -30,7 +32,7 @@ class ImageList extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
           sliver: SliverMasonryGrid.count(
-            crossAxisCount: 2,
+            crossAxisCount: cellNumber,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
             childCount: imageList!.length + 1,
@@ -46,6 +48,7 @@ class ImageList extends StatelessWidget {
                   Helper().goToPage(
                       context: context,
                       child: ImageView(unPlashResponse: item));
+                  Helper().selectImage(item!);
                 },
                 child: AppNetWorkImage(
                   blurHash: item?.blurHash ?? "",
@@ -73,6 +76,8 @@ class TopicsList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cellNumber = Helper().getMobileOrientation(context);
+
     if (topicList == null || topicList!.isEmpty && isLoading) {
       return const LoadingView();
     }
@@ -83,8 +88,8 @@ class TopicsList extends StatelessWidget {
         6.5,
       ),
       itemCount: topicList?.length,
-      gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2),
+      gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: cellNumber),
       itemBuilder: (context, index) {
         Topics? item = topicList?[index];
         return InkWell(

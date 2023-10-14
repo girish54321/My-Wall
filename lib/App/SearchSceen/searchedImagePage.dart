@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/GetxControllers/SearchScreenController.dart';
 import 'package:reqres_app/widget/imageList.dart';
+import 'package:reqres_app/widget/loadingView.dart';
 
 class SearchedImagePage extends StatefulWidget {
   const SearchedImagePage({Key? key}) : super(key: key);
@@ -15,12 +16,12 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
   int pageNumber = 1;
   final TextEditingController _controller = TextEditingController();
 
-  final SearchScreenController homeController =
+  final SearchScreenController searchScreenController =
       Get.put(SearchScreenController());
   final ScrollController _scrollController = ScrollController();
 
   void loadMoreImages() {
-    homeController.getImage(_controller.text);
+    searchScreenController.getImage(_controller.text);
   }
 
   @override
@@ -48,8 +49,8 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
           ),
           child: TextField(
             onSubmitted: (text) {
-              homeController.clearState();
-              homeController.getImage(text);
+              searchScreenController.clearState();
+              searchScreenController.getImage(text);
             },
             controller: _controller,
             decoration: InputDecoration(
@@ -58,7 +59,7 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
               hintText: "Search Images",
               suffixIcon: IconButton(
                 onPressed: () {
-                  homeController.clearState();
+                  searchScreenController.clearState();
                   _controller.text = "";
                 },
                 icon: const Icon(
@@ -69,11 +70,14 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
           ),
         ),
       ),
-      body: Obx((() => homeController.homeScreenImage.isEmpty
-          ? const Center(child: Text("Search You image"))
+      body: Obx((() => searchScreenController.searchScreenImage.isEmpty
+          ? searchScreenController.searchScreenImage.isEmpty &&
+                  searchScreenController.searchScreenLoading.value
+              ? const LoadingView()
+              : const Center(child: Text("Search You image"))
           : ImageList(
-              isLoading: homeController.homeScreenLoading.value,
-              imageList: homeController.homeScreenImage,
+              isLoading: searchScreenController.searchScreenLoading.value,
+              imageList: searchScreenController.searchScreenImage,
               scrollController: _scrollController,
             ))),
     );
@@ -82,7 +86,7 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
   @override
   void dispose() {
     _controller.dispose();
-    homeController.clearState();
+    searchScreenController.clearState();
     super.dispose();
   }
 }

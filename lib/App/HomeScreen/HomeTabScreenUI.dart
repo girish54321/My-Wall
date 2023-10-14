@@ -37,7 +37,7 @@ class HomeTabScreenUI extends StatelessWidget {
               Helper()
                   .goToPage(context: context, child: const SettingsScreen());
             }),
-        title: const Text("My Wall2"),
+        title: const Text("My Wall"),
         centerTitle: true,
         bottom: TabBar(
           controller: tabController,
