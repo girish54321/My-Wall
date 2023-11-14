@@ -132,12 +132,20 @@ class Helper {
   }
 
   Future<void> startDownload(String url, BuildContext context) async {
-    final Directory? downloadsDir = await getDownloadsDirectory();
+    // final Directory? downloadsDir = await getDownloadsDirectory();
+    final Directory? downloadsDir = Platform.isAndroid
+        ? await getDownloadsDirectory()
+        : await getApplicationDocumentsDirectory(); // for iOS
     await FlutterDownloader.enqueue(
         url: url,
         savedDir: downloadsDir!.path,
-        // saveInPublicStorage: true,
-        fileName: "${Helper().getFileName(5)}.png",
+        //* Android
+        saveInPublicStorage: Platform.isAndroid, //* For android
+        // fileName: Helper().getFileName(5), //"png"
+        //* iOS
+        fileName: Platform.isAndroid
+            ? Helper().getFileName(5)
+            : "${Helper().getFileName(5)}.png",
         showNotification:
             true, // show download progress in status bar (for Android)
         openFileFromNotification: true);

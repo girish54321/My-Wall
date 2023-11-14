@@ -30,7 +30,7 @@ class ImageList extends StatelessWidget {
       controller: scrollController,
       slivers: [
         SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
           sliver: SliverMasonryGrid.count(
             crossAxisCount: cellNumber,
             mainAxisSpacing: 8,
@@ -85,7 +85,7 @@ class TopicsList extends StatelessWidget {
       crossAxisSpacing: 6.5,
       mainAxisSpacing: 6.5,
       padding: const EdgeInsets.all(
-        6.5,
+        8,
       ),
       itemCount: topicList?.length,
       gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
