@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import 'package:reqres_app/AppConst/AppConst.dart';
+import 'package:reqres_app/network/util/helper.dart';
 import 'util/nothing.dart';
 import 'util/request_type.dart';
 import 'util/request_type_exception.dart';
@@ -24,21 +25,28 @@ class ReqResClient {
       'Content-Type': 'application/json',
       if (box.hasData(JWT_KEY)) 'Authorization': 'Bearer ${box.read(JWT_KEY)}',
     };
-
+    print("headers 22");
+    print(headers.toString());
     switch (requestType) {
       case RequestType.GET:
-        var uri =
-            _baseUrl + path + ((params != null) ? queryParameters(params) : "");
-        print("API URL");
+        var uri = customBaseUrl ??
+            _baseUrl +
+                path +
+                ((params != null) ? Helper().queryParameters(params) : "");
+        print("API URL12");
         print(uri);
-        return _client.get(Uri.parse(uri));
+        return _client.get(
+          Uri.parse(uri),
+          headers: headers,
+        );
       case RequestType.POST:
-        print("API URL");
+        print("API URL23");
         var url =
             customBaseUrl != null ? "$customBaseUrl/$path" : "$_baseUrl/$path";
         print(url);
         return _client.post(
-            Uri.parse(url + ((params != null) ? queryParameters(params) : "")),
+            Uri.parse(url +
+                ((params != null) ? Helper().queryParameters(params) : "")),
             headers: headers,
             body: json.encode(parameter));
       case RequestType.DELETE:
@@ -47,13 +55,5 @@ class ReqResClient {
         return throw RequestTypeNotFoundException(
             "The HTTP request mentioned is not found");
     }
-  }
-
-  String queryParameters(Map<String, String> params) {
-    if (params != null) {
-      final jsonString = Uri(queryParameters: params);
-      return '?${jsonString.query}';
-    }
-    return '';
   }
 }

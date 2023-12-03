@@ -1,0 +1,7 @@
+#include "../../Flutter/mywall_qaRelease.xcconfig"
+#include "Warnings.xcconfig"
+
+FLUTTER_TARGET=lib/main_mywall_qa.dart
+ASSET_PREFIX=mywall_qa
+BUNDLE_NAME=My Wall QA
+BUNDLE_DISPLAY_NAME=My Wall QA

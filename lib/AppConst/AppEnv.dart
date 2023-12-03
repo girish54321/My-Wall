@@ -1,5 +1,3 @@
-import 'package:reqres_app/network/ReqResClient.dart';
-
 const String client_id = "jRBzm2zUw2eoIPSHZxLvY_hnSh0P8J91P2THDay4y8w";
 const String redirect_uri = "https://girish54321.github.io/My-Portfolio";
 const String response_type = "code";

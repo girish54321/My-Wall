@@ -1,0 +1,7 @@
+#include "../../Flutter/mywall_devProfile.xcconfig"
+#include "Warnings.xcconfig"
+
+FLUTTER_TARGET=lib/main_mywall_dev.dart
+ASSET_PREFIX=mywall_dev
+BUNDLE_NAME=My Wall DEV
+BUNDLE_DISPLAY_NAME=My Wall DEV
