@@ -49,7 +49,6 @@ dependencies:
   progress_indicators: ^1.0.0
   flutter_downloader: ^1.11.1
   path_provider: ^2.1.1
-  flutter_native_splash: ^2.3.2
   dynamic_color: ^1.6.7
   filesize: ^2.0.1
 
@@ -65,15 +64,6 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   flutter_flavorizr: ^2.1.2
   flutter_launcher_icons: ^0.13.1
-
-flutter_native_splash:
-  image: assets/appicon/my_wall_icon.png
-  color: "#ffffff"
-  color_dark: "#000000"
-  android_12:
-    color: "#ffffff"
-    color_dark: "#000000"
-    image: assets/appicon/android_12_splash.png
 
 flavorizr:
   app:

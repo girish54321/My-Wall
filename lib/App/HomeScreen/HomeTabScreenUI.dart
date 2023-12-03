@@ -19,6 +19,10 @@ class HomeTabScreenUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // systemOverlayStyle: SystemUiOverlayStyle(
+        //   systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+        //   systemNavigationBarIconBrightness: Brightness.dark,
+        // ),
         actions: [
           IconButton(
               icon: const Icon(
