@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:reqres_app/App/SettingsScreen/SettingsScreen.dart';
 import 'package:reqres_app/App/SearchSceen/searchedImagePage.dart';
 import 'package:reqres_app/AppConst/widgetList.dart';
@@ -19,6 +20,10 @@ class HomeTabScreenUI extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: Theme.of(context).scaffoldBackgroundColor,
+          systemNavigationBarIconBrightness: Brightness.dark,
+        ),
         actions: [
           IconButton(
               icon: const Icon(

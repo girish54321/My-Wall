@@ -23,7 +23,7 @@ class AppDialogs {
                 Text(
                   title,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 4,
                 ),
                 Text(message),
@@ -32,7 +32,7 @@ class AppDialogs {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text('OK'),
+              child: const Text('OK'),
               onPressed: () {
                 Navigator.of(context).pop();
               },

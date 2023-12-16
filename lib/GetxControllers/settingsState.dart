@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:reqres_app/AppConst/AppConst.dart';
 
 class SettingController extends GetxController {
   RxBool isDark = false.obs;
@@ -14,8 +14,8 @@ class SettingController extends GetxController {
   }
 
   void loadThem() {
-    if (box.hasData('darkThem')) {
-      var isSavedDark = box.read('darkThem');
+    if (box.hasData(THEM_KEY)) {
+      var isSavedDark = box.read(THEM_KEY);
       if (isSavedDark) {
         isDark.value = true;
         Get.changeThemeMode(ThemeMode.dark);
@@ -30,18 +30,16 @@ class SettingController extends GetxController {
   }
 
   void saveThemSetting(bool value) {
-    box.write("darkThem", value);
+    box.write(THEM_KEY, value);
   }
 
   void toggleThem() {
     isDark.value = !isDark.value;
     if (isDark.value == true) {
       saveThemSetting(true);
-      // Get.changeTheme(_darkTheme);
       Get.changeThemeMode(ThemeMode.dark);
     } else if (isDark.value == false) {
       saveThemSetting(false);
-      // Get.changeTheme(_lightTheme);
       Get.changeThemeMode(ThemeMode.light);
     }
   }
