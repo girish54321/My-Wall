@@ -5,7 +5,8 @@ import 'package:reqres_app/widget/imageList.dart';
 import 'package:reqres_app/widget/loadingView.dart';
 
 class SearchedImagePage extends StatefulWidget {
-  const SearchedImagePage({Key? key}) : super(key: key);
+  final String? autoFileSearch;
+  const SearchedImagePage({Key? key, this.autoFileSearch}) : super(key: key);
 
   @override
   _SearchedImagePageState createState() => _SearchedImagePageState();
@@ -21,7 +22,20 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
   final ScrollController _scrollController = ScrollController();
 
   void loadMoreImages() {
+    if (_controller.text == "") {
+      return;
+    }
     searchScreenController.getImage(_controller.text);
+  }
+
+  void autoFillSearch() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.autoFileSearch != "") {
+        _controller.text = widget.autoFileSearch!;
+        searchScreenController.searchScreenImage.clear();
+        loadMoreImages();
+      }
+    });
   }
 
   @override
@@ -34,6 +48,7 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
         loadMoreImages();
       }
     });
+    autoFillSearch();
   }
 
   @override

@@ -41,7 +41,7 @@ class BlackButton extends StatelessWidget {
       onPressed: function,
       style: ElevatedButton.styleFrom(
         // primary: Theme.of(context).accentColor,
-        textStyle: TextStyle(color: Colors.white),
+        textStyle: const TextStyle(color: Colors.white),
       ),
       child: SizedBox(
         height: 55,

@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:reqres_app/network/model/UnPlashResponse.dart';
 import 'package:reqres_app/network/util/helper.dart';
@@ -47,67 +48,73 @@ class _ImageViewState extends State<FullImageView>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          GestureDetector(
-            onDoubleTapDown: ((details) => tapDownDetails = details),
-            onDoubleTap: () {
-              final position = tapDownDetails!.localPosition;
-              const double scale = 3;
-              final x = -position.dx * (scale - 1);
-              final y = -position.dy * (scale - 1);
-              final zoomed = Matrix4.identity()
-                ..translate(x, y)
-                ..scale(scale);
-              final end =
-                  controller.value.isIdentity() ? zoomed : Matrix4.identity();
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+            systemNavigationBarColor: Colors.black,
+            systemNavigationBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.dark),
+        child: Stack(
+          children: [
+            GestureDetector(
+              onDoubleTapDown: ((details) => tapDownDetails = details),
+              onDoubleTap: () {
+                final position = tapDownDetails!.localPosition;
+                const double scale = 3;
+                final x = -position.dx * (scale - 1);
+                final y = -position.dy * (scale - 1);
+                final zoomed = Matrix4.identity()
+                  ..translate(x, y)
+                  ..scale(scale);
+                final end =
+                    controller.value.isIdentity() ? zoomed : Matrix4.identity();
 
-              animation = Matrix4Tween(begin: controller.value, end: end)
-                  .animate(CurveTween(curve: Curves.easeOut)
-                      .animate(animationController));
-              // controller.value = value;
-              animationController.forward(from: 0);
-            },
-            child: SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: InteractiveViewer(
-                transformationController: controller,
-                // clipBehavior: Clip.none,
-                // panEnabled: false,
-                // scaleEnabled: false,
-                child: OctoImage(
-                  image: CachedNetworkImageProvider(
-                    widget.unPlashResponse?.urls?.regular ?? "",
+                animation = Matrix4Tween(begin: controller.value, end: end)
+                    .animate(CurveTween(curve: Curves.easeOut)
+                        .animate(animationController));
+                // controller.value = value;
+                animationController.forward(from: 0);
+              },
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: InteractiveViewer(
+                  transformationController: controller,
+                  // clipBehavior: Clip.none,
+                  // panEnabled: false,
+                  // scaleEnabled: false,
+                  child: OctoImage(
+                    image: CachedNetworkImageProvider(
+                      widget.unPlashResponse?.urls?.regular ?? "",
+                    ),
+                    errorBuilder: OctoError.icon(color: Colors.red),
+                    fit: BoxFit.contain,
                   ),
-                  errorBuilder: OctoError.icon(color: Colors.red),
-                  fit: BoxFit.contain,
                 ),
               ),
             ),
-          ),
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 14,
-              ),
-              child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                      onPressed: () {
-                        Helper().goBack();
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      )),
-                ],
+            SafeArea(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                ),
+                child: Row(
+                  // crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          Helper().goBack();
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       floatingActionButton: DownloadButton(
         url: widget.unPlashResponse?.urls?.regular ?? "",
