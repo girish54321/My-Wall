@@ -44,7 +44,6 @@ class RemoteDataSource {
           requestType: RequestType.GET,
           path: AuthAPIPathHelper.getValue(AuthAPIPath.users),
           params: {"per_page": "50"});
-      // print(response.body.toString());
       if (response.statusCode == 200 || response.statusCode == 201) {
         incomingData = Result<UserListResponse>.success(
             UserListResponse.fromJson(json.decode(response.body)));

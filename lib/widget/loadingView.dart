@@ -1,8 +1,6 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:progress_indicators/progress_indicators.dart';
 import 'package:reqres_app/network/model/loading.dart';
 import 'package:reqres_app/network/util/helper.dart';
 
@@ -23,7 +21,6 @@ class _LoadingViewState extends State<LoadingView> {
         .loadString("assets/json/loading.json");
     final jsonResult = json.decode(data);
     Loading l = Loading.fromJson(jsonResult);
-    print(jsonResult.length);
     setState(() {
       loading = l.loading;
     });
