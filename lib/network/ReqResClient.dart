@@ -25,25 +25,19 @@ class ReqResClient {
       'Content-Type': 'application/json',
       if (box.hasData(JWT_KEY)) 'Authorization': 'Bearer ${box.read(JWT_KEY)}',
     };
-    print("headers 22");
-    print(headers.toString());
     switch (requestType) {
       case RequestType.GET:
         var uri = customBaseUrl ??
             _baseUrl +
                 path +
                 ((params != null) ? Helper().queryParameters(params) : "");
-        print("API URL12");
-        print(uri);
         return _client.get(
           Uri.parse(uri),
           headers: headers,
         );
       case RequestType.POST:
-        print("API URL23");
         var url =
             customBaseUrl != null ? "$customBaseUrl/$path" : "$_baseUrl/$path";
-        print(url);
         return _client.post(
             Uri.parse(url +
                 ((params != null) ? Helper().queryParameters(params) : "")),
