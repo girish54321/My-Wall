@@ -28,7 +28,7 @@
 
 [<img src="https://github.com/NeoApplications/Neo-Backup/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png?raw=true"
     alt="Get it on GitHub"
-    height="80">](https://github.com/vfsfitvnm/ViMusic/releases/latest)
+    height="80">](https://github.com/girish54321/My-Wall/releases/)
 
 <!-- [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
      alt="Get it on IzzyOnDroid"
@@ -75,4 +75,8 @@ Doctor summary (to see all details, run flutter doctor -v):
 
 ```bash
   flutter build apk --release -t lib/main_mywall_dev.dart --flavor mywall_dev
+```
+
+```bash
+  flutter build apk --release -t lib/main_mywall.dart --flavor mywall
 ```
