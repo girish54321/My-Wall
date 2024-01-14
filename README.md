@@ -44,7 +44,7 @@ Follow these steps to get started with "My Wall" app:
 Clone the project
 
 ```bash
-  git clone https://github.com/girish54321/Flutter-Starter.git
+  git clone https://github.com/girish54321/My-Wall.git
 ```
 
 ## Flutter Doctor for the Repo
