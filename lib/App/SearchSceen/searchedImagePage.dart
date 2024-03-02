@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/GetxControllers/SearchScreenController.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/widget/imageList.dart';
 import 'package:reqres_app/widget/loadingView.dart';
 
@@ -19,6 +20,9 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
 
   final SearchScreenController searchScreenController =
       Get.put(SearchScreenController());
+
+  final SettingController settingController = Get.put(SettingController());
+
   final ScrollController _scrollController = ScrollController();
 
   void loadMoreImages() {
@@ -91,6 +95,7 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
               ? const LoadingView()
               : const Center(child: Text("Search You image"))
           : ImageList(
+              perRow: settingController.perRow.value.round(),
               isLoading: searchScreenController.searchScreenLoading.value,
               imageList: searchScreenController.searchScreenImage,
               scrollController: _scrollController,

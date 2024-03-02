@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/GetxControllers/TandingTabGetx.dart';
 import 'package:reqres_app/App/HomeScreen/TrendingTab/TrendingTabUI.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 
 class TrendingTab extends StatefulWidget {
   const TrendingTab({Key? key}) : super(key: key);
@@ -14,6 +15,8 @@ class _TrendingTabState extends State<TrendingTab> {
   ScrollController scrollController = ScrollController();
   final TendingTabController tendingTabController =
       Get.put(TendingTabController());
+
+  final SettingController settingController = Get.put(SettingController());
 
   void loadMoreImages() {
     tendingTabController.getImage();
@@ -34,8 +37,8 @@ class _TrendingTabState extends State<TrendingTab> {
   @override
   Widget build(BuildContext context) {
     return TrendingTabUI(
-      tendingTabController: tendingTabController,
-      scrollController: scrollController,
-    );
+        tendingTabController: tendingTabController,
+        scrollController: scrollController,
+        settingController: settingController);
   }
 }

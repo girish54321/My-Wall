@@ -12,11 +12,13 @@ class ImageList extends StatelessWidget {
   final List<UnsplashResponse?>? imageList;
   final ScrollController? scrollController;
   final bool isLoading;
+  final int? perRow;
   const ImageList({
     Key? key,
     required this.imageList,
     required this.scrollController,
     required this.isLoading,
+    this.perRow,
   }) : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class ImageList extends StatelessWidget {
         SliverPadding(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
           sliver: SliverMasonryGrid.count(
-            crossAxisCount: cellNumber,
+            crossAxisCount: perRow!,
             mainAxisSpacing: 8,
             crossAxisSpacing: 8,
             childCount: imageList!.length + 1,
@@ -67,11 +69,15 @@ class ImageList extends StatelessWidget {
 
 class TopicsList extends StatelessWidget {
   final List<Topics?>? topicList;
+  final Function(Topics? fff)? goto;
+  final int? perRow;
   final bool isLoading;
   const TopicsList({
     Key? key,
     required this.topicList,
     required this.isLoading,
+    required this.goto,
+    this.perRow,
   }) : super(key: key);
 
   @override
@@ -89,18 +95,20 @@ class TopicsList extends StatelessWidget {
       ),
       itemCount: topicList?.length,
       gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: cellNumber),
+          crossAxisCount: perRow ?? cellNumber),
       itemBuilder: (context, index) {
         Topics? item = topicList?[index];
         return InkWell(
           onTap: () {
-            // Get.to(TopicImagesScreen(topics: item));
-            Helper().goToPage(
-                context: context,
-                child: TopicImageScreen(
-                  topics: item!,
-                ));
-            // Get.to(() => TopicImagesScreen(topics: item));
+            if (goto != null) {
+              goto!(item);
+            } else {
+              Helper().goToPage(
+                  context: context,
+                  child: TopicImageScreen(
+                    topics: item!,
+                  ));
+            }
           },
           child: Stack(
             children: [

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:reqres_app/App/HomeScreen/GretingsTab/GratingsTab.dart';
+import 'package:reqres_app/App/auth/login/loginScreen.dart';
 import 'package:reqres_app/GetxControllers/AppGetxController.dart';
 import 'package:reqres_app/GetxControllers/HomeTabGetx.dart';
 import 'package:reqres_app/GetxControllers/TandingTabGetx.dart';
@@ -8,7 +10,9 @@ import 'package:reqres_app/App/HomeScreen/CategoryTab/CategoryTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTab/HomeTab.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTabScreenUI.dart';
 import 'package:reqres_app/App/HomeScreen/TrendingTab/TrendingTab.dart';
+import 'package:reqres_app/widget/DesktopMenu.dart';
 import 'package:reqres_app/widget/DialogHelper.dart';
+import 'dart:io' show Platform;
 
 class AppMenuItem {
   final String id;
@@ -37,7 +41,7 @@ class _HomeTabScreenState extends State<HomeTabScreen>
     const HomeTab(),
     const TrendingTab(),
     const CategoryTab(),
-    // const SaveTabScreen(),
+    const GratingsTab(),
   ];
 
   Future<void> userLogout() async {
@@ -46,14 +50,14 @@ class _HomeTabScreenState extends State<HomeTabScreen>
     if (action == DialogAction.yes) {
       final box = GetStorage();
       box.remove('token');
-      // Get.offAll(LoginScreen());
+      Get.offAll(const LoginScreen());
     }
   }
 
   @override
   void initState() {
     super.initState();
-    tabController = TabController(vsync: this, length: 3);
+    tabController = TabController(vsync: this, length: 4);
     tabController.addListener(_handleTabSelection);
     _scrollController.addListener(() {
       if (_scrollController.offset >=
@@ -85,6 +89,17 @@ class _HomeTabScreenState extends State<HomeTabScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (Platform.isMacOS) {
+      return HomeTabScreenUI(
+        body: DesktopMenu(
+          screen: _children,
+        ),
+        scrollController: _scrollController,
+        tabController: tabController,
+        children: _children,
+      );
+    }
+
     return HomeTabScreenUI(
       scrollController: _scrollController,
       tabController: tabController,

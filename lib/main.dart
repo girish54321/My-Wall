@@ -3,9 +3,11 @@ import 'package:get_storage/get_storage.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTabScreen.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/App/auth/login/loginScreen.dart';
+import 'package:reqres_app/App/auth/login/loginScreenMacOs.dart';
 import 'package:reqres_app/AppConst/AppConst.dart';
 import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/flavors.dart';
+import 'dart:io' show Platform;
 import 'package:dynamic_color/dynamic_color.dart';
 // For rootBundle
 
@@ -39,7 +41,9 @@ class MyWallApp extends StatelessWidget {
             page: () {
               return jwt.isNotEmpty
                   ? _wrapWithBanner(const HomeTabScreen())
-                  : _wrapWithBanner(const LoginScreen());
+                  : _wrapWithBanner(Platform.isMacOS
+                      ? const LoginScreenMacOS()
+                      : const LoginScreen());
             },
           ),
         ],

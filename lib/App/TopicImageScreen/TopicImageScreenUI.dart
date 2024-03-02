@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/GetxControllers/CategoryTabGetx.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/network/dataModel/topic.dart';
 import 'package:reqres_app/widget/imageList.dart';
 
 class TopicImageScreenUI extends StatelessWidget {
   final CategoryTabController homeTabController;
+  final SettingController settingController;
   final ScrollController scrollController;
   final Topics topics;
 
@@ -13,7 +15,8 @@ class TopicImageScreenUI extends StatelessWidget {
       {Key? key,
       required this.homeTabController,
       required this.scrollController,
-      required this.topics})
+      required this.topics,
+      required this.settingController})
       : super(key: key);
 
   @override
@@ -26,6 +29,7 @@ class TopicImageScreenUI extends StatelessWidget {
         (() => ImageList(
               isLoading: homeTabController.topicListLoading.value,
               imageList: homeTabController.topicImages,
+              perRow: settingController.perRow.value.round(),
               scrollController: scrollController,
             )),
       ),

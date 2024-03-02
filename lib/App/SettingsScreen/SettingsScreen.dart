@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/network/util/helper.dart';
+import 'package:reqres_app/widget/ImageRowSettingView.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -16,7 +17,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final SettingController settingController =
       GetInstance().put<SettingController>(SettingController());
   GetStorage box = GetStorage();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,6 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     value: settingController.isDark.value,
                     onChanged: (bool _) => settingController.toggleThem(),
                   )))),
+          const ImageRowSettingView(),
           ListTile(
             title: const Text("LogOut"),
             onTap: () {

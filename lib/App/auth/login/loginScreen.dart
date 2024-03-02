@@ -9,6 +9,7 @@ import 'package:reqres_app/network/dataModel/LoginSuccess.dart';
 import 'package:reqres_app/network/model/result.dart';
 import 'package:reqres_app/network/remote_data_source.dart';
 import 'package:reqres_app/network/util/helper.dart';
+import 'dart:io' show Platform;
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -58,58 +59,79 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(loginURL);
     return Scaffold(
-        appBar: AppBar(title: const Text("Login!")),
-        body: SafeArea(
-            child: Column(children: <Widget>[
-          Expanded(
-            child: Stack(
-              children: [
-                InAppWebView(
-                  key: webViewKey,
-                  initialUrlRequest: URLRequest(url: Uri.parse(loginURL)),
-                  shouldOverrideUrlLoading:
-                      (controller, navigationAction) async {
-                    return NavigationActionPolicy.ALLOW;
-                  },
-                  onLoadStop: (controller, url) async {
-                    pullToRefreshController?.endRefreshing();
-                    if (url.toString().contains('code')) {
-                      String url1 = url.toString();
-                      String? code = Helper().getCodeFromUrl(url1);
-                      loginUser(code);
-                    }
-                    setState(() {
-                      this.url = url.toString();
-                      urlController.text = this.url;
-                    });
-                  },
-                  onProgressChanged: (controller, progress) {
-                    if (progress == 100) {
-                      Helper().hideLoading();
-                      pullToRefreshController?.endRefreshing();
-                    }
-                    setState(() {
-                      this.progress = progress / 100;
-                      urlController.text = url;
-                    });
-                  },
-                  onUpdateVisitedHistory: (controller, url, androidIsReload) {
-                    setState(() {
-                      this.url = url.toString();
-                      urlController.text = this.url;
-                    });
-                  },
-                  onConsoleMessage: (controller, consoleMessage) {
-                    print(consoleMessage);
-                  },
-                ),
-                progress < 1.0
-                    ? LinearProgressIndicator(value: progress)
-                    : Container(),
-              ],
+      appBar: AppBar(title: const Text("Login 2!")),
+      body: SafeArea(
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Stack(
+                children: [
+                  Platform.isMacOS
+                      ? TextField(
+                          onSubmitted: ((value) {
+                            loginUser(value);
+                          }),
+                          cursorColor: Colors.black,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: Colors.blueAccent,
+                            border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.circular(50)),
+                          ),
+                        )
+                      : InAppWebView(
+                          key: webViewKey,
+                          initialUrlRequest:
+                              URLRequest(url: Uri.parse(loginURL)),
+                          shouldOverrideUrlLoading:
+                              (controller, navigationAction) async {
+                            return NavigationActionPolicy.ALLOW;
+                          },
+                          onLoadStop: (controller, url) async {
+                            pullToRefreshController?.endRefreshing();
+                            if (url.toString().contains('code')) {
+                              String url1 = url.toString();
+                              String? code = Helper().getCodeFromUrl(url1);
+                              loginUser(code);
+                            }
+                            setState(() {
+                              this.url = url.toString();
+                              urlController.text = this.url;
+                            });
+                          },
+                          onProgressChanged: (controller, progress) {
+                            if (progress == 100) {
+                              Helper().hideLoading();
+                              pullToRefreshController?.endRefreshing();
+                            }
+                            setState(() {
+                              this.progress = progress / 100;
+                              urlController.text = url;
+                            });
+                          },
+                          onUpdateVisitedHistory:
+                              (controller, url, androidIsReload) {
+                            setState(() {
+                              this.url = url.toString();
+                              urlController.text = this.url;
+                            });
+                          },
+                          onConsoleMessage: (controller, consoleMessage) {
+                            print(consoleMessage);
+                          },
+                        ),
+                  progress < 1.0
+                      ? LinearProgressIndicator(value: progress)
+                      : Container(),
+                ],
+              ),
             ),
-          ),
-        ])));
+          ],
+        ),
+      ),
+    );
   }
 }

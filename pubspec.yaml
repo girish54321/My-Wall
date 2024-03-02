@@ -36,9 +36,8 @@ dependencies:
   fluttertoast: ^8.0.8
   intl: ^0.17.0
   animate_do: ^2.1.0
-  octo_image: ^1.0.1
-  cached_network_image: ^3.2.0
-  image_downloader: ^0.31.0
+  octo_image: ^2.0.0
+  cached_network_image: ^3.2.3
   http: ^1.1.0
   get: ^4.6.6
   page_transition: ^2.0.2
@@ -50,8 +49,10 @@ dependencies:
   progress_indicators: ^1.0.0
   flutter_downloader: ^1.11.1
   path_provider: ^2.1.1
+  flutter_blurhash: ^0.8.2
   dynamic_color: ^1.6.7
   filesize: ^2.0.1
+  url_launcher: 6.1.10
 
 dev_dependencies:
   flutter_test:

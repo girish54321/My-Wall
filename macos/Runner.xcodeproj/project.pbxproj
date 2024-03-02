@@ -99,6 +99,7 @@
 		D17D3B2F7C0CEF5A20A9BA3C /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 		DFD61E9D9669EA9CEE744EFE /* Pods-Runner.debug-mywall_qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-mywall_qa.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-mywall_qa.xcconfig"; sourceTree = "<group>"; };
 		F09296AE71035481A86D3C43 /* Pods-Runner.release-mywall_qa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-mywall_qa.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-mywall_qa.xcconfig"; sourceTree = "<group>"; };
+		F4B0F2682B93166800FB9E03 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
 		FC31D00946DEC3D34B9C3CF2 /* Pods-Runner.release-mywall_dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-mywall_dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-mywall_dev.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +206,7 @@
 		33FAB671232836740065AC1E /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				F4B0F2682B93166800FB9E03 /* Runner.entitlements */,
 				33CC10F02044A3C60003C045 /* AppDelegate.swift */,
 				33CC11122044BFA00003C045 /* MainFlutterWindow.swift */,
 				33E51913231747F40026EE4D /* DebugProfile.entitlements */,
@@ -1168,6 +1170,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 321128299B5FA92C26864199 /* Pods-Runner.debug-mywall.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1177,6 +1180,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 30CB7F39B441840D58C7F841 /* Pods-Runner.profile-mywall.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1186,6 +1190,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33FFB3913E9CE5C32098463A /* Pods-Runner.release-mywall.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1195,6 +1200,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C5BB147B51DF6DC04719FB56 /* Pods-Runner.debug-mywall_dev.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1204,6 +1210,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3D97E5F22EC678A4160088BA /* Pods-Runner.profile-mywall_dev.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1213,6 +1220,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FC31D00946DEC3D34B9C3CF2 /* Pods-Runner.release-mywall_dev.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1222,6 +1230,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DFD61E9D9669EA9CEE744EFE /* Pods-Runner.debug-mywall_qa.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1231,6 +1240,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6F07F2279FA7DEE13ED9F929 /* Pods-Runner.profile-mywall_qa.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
@@ -1240,6 +1250,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F09296AE71035481A86D3C43 /* Pods-Runner.release-mywall_qa.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				PODS_ROOT = "${SRCROOT}/Pods";
 				PRODUCT_NAME = Runner;
 			};
