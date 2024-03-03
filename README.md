@@ -71,6 +71,10 @@ Doctor summary (to see all details, run flutter doctor -v):
 [✓] Network resources
 ```
 
+```bash
+flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-mywall_dev.yaml  && flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-mywall_qa.yaml && flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-mywall.yaml
+```
+
 ## Create APK
 
 ```bash
