@@ -11,6 +11,8 @@ import 'package:reqres_app/network/remote_data_source.dart';
 import 'package:reqres_app/network/util/helper.dart';
 import 'dart:io' show Platform;
 
+import 'package:url_launcher/url_launcher.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -59,9 +61,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(loginURL);
     return Scaffold(
-      appBar: AppBar(title: const Text("Login 2!")),
+      appBar: AppBar(title: const Text("Login MacOS!")),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -69,18 +70,34 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Stack(
                 children: [
                   Platform.isMacOS
-                      ? TextField(
-                          onSubmitted: ((value) {
-                            loginUser(value);
-                          }),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Colors.blueAccent,
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(50)),
-                          ),
+                      ? Column(
+                          children: [
+                            TextField(
+                              onSubmitted: ((value) {
+                                if (value.toString().contains('code')) {
+                                  String url1 = value.toString();
+                                  String? code = Helper().getCodeFromUrl(url1);
+                                  loginUser(code);
+                                }
+                              }),
+                              cursorColor: Colors.black,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.blueAccent,
+                                border: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(50)),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 27,
+                            ),
+                            ElevatedButton(
+                                onPressed: () async {
+                                  if (!await launchUrl(Uri.parse(loginURL))) {}
+                                },
+                                child: Text("Login")),
+                          ],
                         )
                       : InAppWebView(
                           key: webViewKey,

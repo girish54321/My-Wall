@@ -61,7 +61,11 @@ class _LoginScreenState extends State<LoginScreenMacOS> {
           children: [
             TextField(
               onSubmitted: ((value) {
-                loginUser(value);
+                if (value.toString().contains('code')) {
+                  String url1 = value.toString();
+                  String? code = Helper().getCodeFromUrl(url1);
+                  loginUser(code);
+                }
               }),
               cursorColor: Colors.black,
               decoration: InputDecoration(

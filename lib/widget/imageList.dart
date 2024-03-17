@@ -26,7 +26,9 @@ class ImageList extends StatelessWidget {
     var cellNumber = Helper().getMobileOrientation(context);
 
     if (imageList == null || imageList!.isEmpty && isLoading) {
-      return const LoadingView();
+      return LoadingView(
+        crossAxisCount: perRow ?? cellNumber,
+      );
     }
     return CustomScrollView(
       controller: scrollController,
@@ -85,7 +87,7 @@ class TopicsList extends StatelessWidget {
     var cellNumber = Helper().getMobileOrientation(context);
 
     if (topicList == null || topicList!.isEmpty && isLoading) {
-      return const LoadingView();
+      return LoadingView(crossAxisCount: perRow ?? cellNumber);
     }
     return MasonryGridView.builder(
       crossAxisSpacing: 6.5,

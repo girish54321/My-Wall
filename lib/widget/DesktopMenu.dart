@@ -35,7 +35,8 @@ class _DesktopMenuState extends State<DesktopMenu> {
                 alignment: Alignment.bottomCenter,
                 child: Column(
                   children: [
-                    const Expanded(child: ImageRowSettingView()),
+                    // const Expanded(child: ImageRowSettingView()),
+                    const Expanded(child: Text("")),
                     Padding(
                       padding: const EdgeInsets.only(bottom: 8.0),
                       child: IconButton(
