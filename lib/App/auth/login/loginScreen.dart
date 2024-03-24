@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Get.off(HomeTabScreen());
       } else if (value is ErrorState) {
         var error = value.msg;
-        print(error);
+        Helper().showMessage(error, context);
       }
     });
   }
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login MacOS!")),
+      appBar: AppBar(title: const Text("Login!")),
       body: SafeArea(
         child: Column(
           children: <Widget>[
@@ -136,9 +136,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               urlController.text = this.url;
                             });
                           },
-                          onConsoleMessage: (controller, consoleMessage) {
-                            print(consoleMessage);
-                          },
+                          onConsoleMessage: (controller, consoleMessage) {},
                         ),
                   progress < 1.0
                       ? LinearProgressIndicator(value: progress)
