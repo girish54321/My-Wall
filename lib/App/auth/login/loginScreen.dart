@@ -30,6 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
   double progress = 0;
   final urlController = TextEditingController();
 
+  List<String> steps = [
+    "1. Tap on login Button (this will open the Unsplash Login)",
+    "2. Login With your Unsplash account",
+    "3. Copy past the final web Link in Input Box",
+    "4. And Hit Enter",
+  ];
+
   void loginUser(String? code) {
     if (code == null) {
       return;
@@ -70,34 +77,45 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Stack(
                 children: [
                   Platform.isMacOS
-                      ? Column(
-                          children: [
-                            TextField(
-                              onSubmitted: ((value) {
-                                if (value.toString().contains('code')) {
-                                  String url1 = value.toString();
-                                  String? code = Helper().getCodeFromUrl(url1);
-                                  loginUser(code);
-                                }
-                              }),
-                              cursorColor: Colors.black,
-                              decoration: InputDecoration(
-                                filled: true,
-                                fillColor: Colors.blueAccent,
-                                border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.circular(50)),
+                      ? Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Column(
+                            children: [
+                              TextField(
+                                onSubmitted: ((value) {
+                                  if (value.toString().contains('code')) {
+                                    String url1 = value.toString();
+                                    String? code =
+                                        Helper().getCodeFromUrl(url1);
+                                    loginUser(code);
+                                  }
+                                }),
+                                cursorColor: Colors.black,
+                                decoration: InputDecoration(
+                                  filled: true,
+                                  // fillColor: Colors.blueAccent,
+                                  border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(8)),
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              height: 27,
-                            ),
-                            ElevatedButton(
-                                onPressed: () async {
-                                  if (!await launchUrl(Uri.parse(loginURL))) {}
-                                },
-                                child: Text("Login")),
-                          ],
+                              const SizedBox(
+                                height: 27,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    if (!await launchUrl(
+                                        Uri.parse(loginURL))) {}
+                                  },
+                                  child: const Text("Login")),
+                              const SizedBox(
+                                height: 27,
+                              ),
+                              ...steps.map((e) => Container(
+                                  padding: const EdgeInsets.only(bottom: 8),
+                                  child: Text(e)))
+                            ],
+                          ),
                         )
                       : InAppWebView(
                           key: webViewKey,
