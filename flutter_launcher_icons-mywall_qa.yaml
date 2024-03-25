@@ -1,5 +1,8 @@
 flutter_icons:
-  android: false
+  android: true
   ios: true
-  image_path: "assets/appicon/qa_ios.png"
+  macos:
+    generate: true
+    image_path: "assets/appicon/dev_ios.png"
+  image_path: "assets/appicon/dev_ios.png"
   remove_alpha_ios: true

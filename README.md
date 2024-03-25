@@ -24,6 +24,10 @@
 
 <img width="1604"  src="appimages/banner.png?raw=true">
 
+## MacOS
+
+<img width="1604"  src="appimages/macos.png?raw=true">
+
 ## Installation
 
 [<img src="https://github.com/NeoApplications/Neo-Backup/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png?raw=true"
@@ -69,6 +73,10 @@ Doctor summary (to see all details, run flutter doctor -v):
 [✓] VS Code (version 1.85.1)
 [✓] Connected device (1 available)
 [✓] Network resources
+```
+
+```bash
+flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-mywall_dev.yaml  && flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-mywall_qa.yaml && flutter pub run flutter_launcher_icons:main -f flutter_launcher_icons-mywall.yaml
 ```
 
 ## Create APK

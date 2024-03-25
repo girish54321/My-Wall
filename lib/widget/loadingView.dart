@@ -6,8 +6,10 @@ import 'package:reqres_app/network/util/helper.dart';
 
 class LoadingView extends StatefulWidget {
   final bool? isSliver;
+  final int crossAxisCount;
 
-  const LoadingView({Key? key, this.isSliver}) : super(key: key);
+  const LoadingView({Key? key, this.isSliver, required this.crossAxisCount})
+      : super(key: key);
 
   @override
   _LoadingViewState createState() => _LoadingViewState();
@@ -34,7 +36,6 @@ class _LoadingViewState extends State<LoadingView> {
 
   @override
   Widget build(BuildContext context) {
-    var cellNumber = Helper().getMobileOrientation(context);
     return MasonryGridView.builder(
         shrinkWrap: true,
         crossAxisSpacing: 6.5,
@@ -44,7 +45,7 @@ class _LoadingViewState extends State<LoadingView> {
         ),
         itemCount: loading!.length,
         gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: cellNumber),
+            crossAxisCount: widget.crossAxisCount),
         itemBuilder: (context, index) {
           LoadingElement? loadingElement = loading?[index];
           return Helper().loadingItem(loadingElement, index);
