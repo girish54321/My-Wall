@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/GetxControllers/HomeTabGetx.dart';
 import 'package:reqres_app/App/HomeScreen/HomeTab/HomeTabUI.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({Key? key}) : super(key: key);
@@ -12,6 +13,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   final HomeTabController homeController = Get.put(HomeTabController());
+  final SettingController settingController = Get.put(SettingController());
   final ScrollController _scrollController = ScrollController();
 
   void loadMoreImages() {
@@ -34,6 +36,7 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     return HomeTabUI(
       homeTabController: homeController,
+      settingController: settingController,
       scrollController: _scrollController,
     );
   }

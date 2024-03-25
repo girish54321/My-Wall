@@ -61,7 +61,7 @@ class CategoryTabController extends GetxController {
       "per_page": "30",
       "page": pageNumber.value.toString()
     };
-    Future<Result> result = _apiResponse.getTopics(parameter);
+    Future<Result> result = _apiResponse.getTopics(parameter, null);
     result.then((value) {
       homeScreenLoading.value = false;
       if (value is SuccessState) {

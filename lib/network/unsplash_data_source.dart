@@ -71,13 +71,14 @@ class UnSplashRemoteDataSource {
     }
   }
 
-  Future<Result> getTopics(apiParameter) async {
+  Future<Result> getTopics(apiParameter, customBaseUrl) async {
     Result incomingData = Result.loading("Loading");
     try {
       final response = await client.request(
-          requestType: RequestType.GET,
-          path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.topics),
-          params: apiParameter);
+        requestType: RequestType.GET,
+        customBaseUrl: customBaseUrl,
+        path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.topics),
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         List<Topics> unPlashResponseList = [];

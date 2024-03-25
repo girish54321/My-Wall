@@ -18,10 +18,11 @@ import 'package:reqres_app/network/model/loading.dart';
 import 'package:reqres_app/responsive/enums/device_screen_type.dart';
 import 'package:reqres_app/responsive/utils/ui_utils.dart';
 import 'package:reqres_app/widget/DialogHelper.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Helper {
   goToPage({required BuildContext context, required Widget child}) {
-    if (Platform.isAndroid) {
+    if (Platform.isAndroid || Platform.isMacOS) {
       Navigator.push(context,
           PageTransition(type: PageTransitionType.rightToLeft, child: child));
     }
@@ -35,20 +36,32 @@ class Helper {
     }
   }
 
+  int responsiveNumGridTiles(MediaQueryData mediaQuery) {
+    double deviceWidth = mediaQuery.size.width;
+    if (deviceWidth < 700) {
+      // return 6;
+      return 4;
+    } else if (deviceWidth < 1200) {
+      return 8;
+    } else if (deviceWidth < 1650) {
+      return 16;
+    } else {
+      return 16;
+    }
+  }
+
   getMobileOrientation(context) {
     int cellCount = 4;
     var mediaQuery = MediaQuery.of(context);
-    double deviceWidth = mediaQuery.size.shortestSide;
     DeviceScreenType deviceScreenType = getDeviceType(mediaQuery);
     var orientation = mediaQuery.orientation;
     if (deviceScreenType == DeviceScreenType.Mobile) {
       cellCount = orientation == Orientation.portrait ? 2 : 4;
     } else if (deviceScreenType == DeviceScreenType.Tablet) {
       cellCount = 8;
+    } else if (deviceScreenType == DeviceScreenType.Desktop) {
+      cellCount = responsiveNumGridTiles(mediaQuery);
     }
-    // } else if (deviceScreenType == DeviceScreenType.Desktop) {
-    //   cellCount = responsiveNumGridTiles(mediaQuery);
-    // }
     return cellCount;
   }
 
@@ -132,27 +145,31 @@ class Helper {
   }
 
   Future<void> startDownload(String url, BuildContext context) async {
-    // final Directory? downloadsDir = await getDownloadsDirectory();
-    final Directory? downloadsDir = Platform.isAndroid
-        ? await getDownloadsDirectory()
-        : await getApplicationDocumentsDirectory(); // for iOS
-    await FlutterDownloader.enqueue(
-        url: url,
-        savedDir: downloadsDir!.path,
-        //* Android
-        saveInPublicStorage: Platform.isAndroid, //* For android
-        // fileName: Helper().getFileName(5), //"png"
-        //* iOS
-        fileName: Platform.isAndroid
-            ? Helper().getFileName(5)
-            : "${Helper().getFileName(5)}.png",
-        showNotification:
-            true, // show download progress in status bar (for Android)
-        openFileFromNotification: true);
-    const snackBar = SnackBar(
-      content: Text('Yay! Image Saved!'),
-    );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    if (Platform.isMacOS) {
+      if (!await launchUrl(Uri.parse(url))) {}
+    } else {
+      // final Directory? downloadsDir = await getDownloadsDirectory();
+      final Directory? downloadsDir = Platform.isAndroid
+          ? await getDownloadsDirectory()
+          : await getApplicationDocumentsDirectory(); // for iOS
+      await FlutterDownloader.enqueue(
+          url: url,
+          savedDir: downloadsDir!.path,
+          //* Android
+          saveInPublicStorage: Platform.isAndroid, //* For android
+          // fileName: Helper().getFileName(5), //"png"
+          //* iOS
+          fileName: Platform.isAndroid
+              ? Helper().getFileName(5)
+              : "${Helper().getFileName(5)}.png",
+          showNotification:
+              true, // show download progress in status bar (for Android)
+          openFileFromNotification: true);
+      const snackBar = SnackBar(
+        content: Text('Yay! Image Saved!'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
     goBack();
   }
 

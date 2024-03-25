@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:reqres_app/GetxControllers/CategoryTabGetx.dart';
 import 'package:reqres_app/App/TopicImageScreen/TopicImageScreenUI.dart';
+import 'package:reqres_app/GetxControllers/settingsState.dart';
 import 'package:reqres_app/network/dataModel/topic.dart';
 
 class TopicImageScreen extends StatefulWidget {
@@ -14,6 +15,7 @@ class TopicImageScreen extends StatefulWidget {
 
 class _HomeTabState extends State<TopicImageScreen> {
   final CategoryTabController homeController = Get.put(CategoryTabController());
+  final SettingController settingController = Get.put(SettingController());
   final ScrollController _scrollController = ScrollController();
 
   void loadMoreImages() {
@@ -36,6 +38,7 @@ class _HomeTabState extends State<TopicImageScreen> {
   @override
   Widget build(BuildContext context) {
     return TopicImageScreenUI(
+      settingController: settingController,
       homeTabController: homeController,
       scrollController: _scrollController,
       topics: widget.topics,

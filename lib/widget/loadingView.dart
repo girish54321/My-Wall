@@ -34,6 +34,7 @@ class _LoadingViewState extends State<LoadingView> {
 
   @override
   Widget build(BuildContext context) {
+    var cellNumber = Helper().getMobileOrientation(context);
     return MasonryGridView.builder(
         shrinkWrap: true,
         crossAxisSpacing: 6.5,
@@ -42,8 +43,8 @@ class _LoadingViewState extends State<LoadingView> {
           6.5,
         ),
         itemCount: loading!.length,
-        gridDelegate: const SliverSimpleGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2),
+        gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: cellNumber),
         itemBuilder: (context, index) {
           LoadingElement? loadingElement = loading?[index];
           return Helper().loadingItem(loadingElement, index);
