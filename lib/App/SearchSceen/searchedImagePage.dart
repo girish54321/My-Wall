@@ -92,7 +92,8 @@ class _SearchedImagePageState extends State<SearchedImagePage> {
       body: Obx((() => searchScreenController.searchScreenImage.isEmpty
           ? searchScreenController.searchScreenImage.isEmpty &&
                   searchScreenController.searchScreenLoading.value
-              ? const LoadingView()
+              ? LoadingView(
+                  crossAxisCount: settingController.perRow.value.round())
               : const Center(child: Text("Search You image"))
           : ImageList(
               perRow: settingController.perRow.value.round(),
