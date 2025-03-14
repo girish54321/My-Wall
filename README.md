@@ -55,23 +55,22 @@ Clone the project
 
 ```bash
 Doctor summary (to see all details, run flutter doctor -v):
-[✓] Flutter (Channel stable, 3.13.9, on macOS 13.5.1 22G90 darwin-x64, locale
+[✓] Flutter (Channel stable, 3.29.1, on macOS 15.3.2 24D81 darwin-x64, locale
     en-IN)
-[!] Android toolchain - develop for Android devices (Android SDK version 33.0.1)
+[!] Android toolchain - develop for Android devices (Android SDK version 35.0.0)
     ✗ cmdline-tools component is missing
       Run `path/to/sdkmanager --install "cmdline-tools;latest"`
       See https://developer.android.com/studio/command-line for more details.
     ✗ Android license status unknown.
       Run `flutter doctor --android-licenses` to accept the SDK licenses.
-      See https://flutter.dev/docs/get-started/install/macos#android-setup for
-      more details.
-[✓] Xcode - develop for iOS and macOS (Xcode 14.3.1)
+      See https://flutter.dev/to/macos-android-setup for more details.
+[✓] Xcode - develop for iOS and macOS (Xcode 16.2)
 [✗] Chrome - develop for the web (Cannot find Chrome executable at
     /Applications/Google Chrome.app/Contents/MacOS/Google Chrome)
     ! Cannot find Chrome. Try setting CHROME_EXECUTABLE to a Chrome executable.
-[✓] Android Studio (version 2022.3)
-[✓] VS Code (version 1.85.1)
-[✓] Connected device (1 available)
+[✓] Android Studio (version 2024.2)
+[✓] VS Code (version 1.98.2)
+[✓] Connected device (3 available)
 [✓] Network resources
 ```
 
