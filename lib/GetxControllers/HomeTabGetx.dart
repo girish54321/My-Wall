@@ -27,8 +27,8 @@ class HomeTabController extends GetxController {
     homeScreenLoading.value = true;
     var parameter = {
       "order_by": "latest",
-      "per_page": "10",
-      "page": pageNumber.value.toString()
+      "per_page": "6",
+      "page": pageNumber.value.toString(),
     };
     Future<Result> result = _apiResponse.getHomeScreenImage(parameter);
     result.then((value) {
@@ -36,6 +36,7 @@ class HomeTabController extends GetxController {
       if (value is SuccessState) {
         var res = value.value as List<UnsplashResponse>;
         homeScreenImage.addAll(res);
+        // print(homeScreenImage.)
         pageNumber.value = pageNumber.value + 1;
       } else {}
     });
