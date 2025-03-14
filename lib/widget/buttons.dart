@@ -15,7 +15,7 @@ class AppButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: function,
         style: ElevatedButton.styleFrom(
-          primary: color ?? Theme.of(context).colorScheme.primary,
+          // primary: color ?? Theme.of(context).colorScheme.primary,
           textStyle: const TextStyle(color: Colors.black),
         ),
         child: SizedBox(
