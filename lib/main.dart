@@ -10,9 +10,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 // For rootBundle
 
 class MyWallApp extends StatelessWidget {
-  const MyWallApp({
-    Key? key,
-  }) : super(key: key);
+  const MyWallApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,31 +18,30 @@ class MyWallApp extends StatelessWidget {
     GetInstance().put<SettingController>(SettingController());
     String jwt = box.read(JWT_KEY) ?? "";
     return DynamicColorBuilder(
-        builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
-      return GetMaterialApp(
-        title: 'Flutter Demo',
-        themeMode: ThemeMode.system,
-        darkTheme: ThemeData(
+      builder: (ColorScheme? lightDynamic, ColorScheme? darkDynamic) {
+        return GetMaterialApp(
+          title: 'Flutter Demo',
+          darkTheme: ThemeData(
             brightness: Brightness.dark,
-            useMaterial3: true,
-            // colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
-            scaffoldBackgroundColor: Colors.black),
-        theme: ThemeData(
-            useMaterial3: true,
-            // colorSchemeSeed: Color.fromARGB(255, 56, 20, 213),
-            brightness: Brightness.light),
-        getPages: [
-          GetPage(
-            name: '/',
-            page: () {
-              return jwt.isNotEmpty
-                  ? _wrapWithBanner(const HomeTabScreen())
-                  : _wrapWithBanner(const LoginScreen());
-            },
+            colorScheme: darkDynamic,
           ),
-        ],
-      );
-    });
+          theme: ThemeData(
+            brightness: Brightness.light,
+            colorScheme: lightDynamic,
+          ),
+          getPages: [
+            GetPage(
+              name: '/',
+              page: () {
+                return jwt.isNotEmpty
+                    ? _wrapWithBanner(const HomeTabScreen())
+                    : _wrapWithBanner(const LoginScreen());
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   /// Adds banner to the [child] widget.
@@ -55,7 +52,10 @@ class MyWallApp extends StatelessWidget {
       message: F.name,
       color: Colors.green.withOpacity(0.6),
       textStyle: const TextStyle(
-          fontWeight: FontWeight.w700, fontSize: 12.0, letterSpacing: 1.0),
+        fontWeight: FontWeight.w700,
+        fontSize: 12.0,
+        letterSpacing: 1.0,
+      ),
       textDirection: TextDirection.ltr,
     );
   }
