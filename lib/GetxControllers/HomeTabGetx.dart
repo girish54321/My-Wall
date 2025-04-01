@@ -27,7 +27,7 @@ class HomeTabController extends GetxController {
     homeScreenLoading.value = true;
     var parameter = {
       "order_by": "latest",
-      "per_page": "6",
+      "per_page": "15",
       "page": pageNumber.value.toString(),
     };
     Future<Result> result = _apiResponse.getHomeScreenImage(parameter);
