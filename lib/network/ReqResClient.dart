@@ -14,12 +14,13 @@ class ReqResClient {
 
   ReqResClient(this._client);
 
-  Future<Response> request(
-      {required RequestType requestType,
-      required String path,
-      String? customBaseUrl,
-      Map<String, String>? params,
-      dynamic parameter = Nothing}) async {
+  Future<Response> request({
+    required RequestType requestType,
+    required String path,
+    String? customBaseUrl,
+    Map<String, String>? params,
+    dynamic parameter = Nothing,
+  }) async {
     //* Check for the Token
     final headers = <String, String>{
       'Content-Type': 'application/json',
@@ -27,27 +28,30 @@ class ReqResClient {
     };
     switch (requestType) {
       case RequestType.GET:
-        var uri = customBaseUrl ??
+        var uri =
+            customBaseUrl ??
             _baseUrl +
                 path +
                 ((params != null) ? Helper().queryParameters(params) : "");
-        return _client.get(
-          Uri.parse(uri),
-          headers: headers,
-        );
+        print("URL");
+        print(uri);
+        return _client.get(Uri.parse(uri), headers: headers);
       case RequestType.POST:
         var url =
             customBaseUrl != null ? "$customBaseUrl/$path" : "$_baseUrl/$path";
         return _client.post(
-            Uri.parse(url +
-                ((params != null) ? Helper().queryParameters(params) : "")),
-            headers: headers,
-            body: json.encode(parameter));
+          Uri.parse(
+            url + ((params != null) ? Helper().queryParameters(params) : ""),
+          ),
+          headers: headers,
+          body: json.encode(parameter),
+        );
       case RequestType.DELETE:
         return _client.delete(Uri.parse("$_baseUrl/$path"));
       default:
         return throw RequestTypeNotFoundException(
-            "The HTTP request mentioned is not found");
+          "The HTTP request mentioned is not found",
+        );
     }
   }
 }

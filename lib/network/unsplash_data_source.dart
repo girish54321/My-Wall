@@ -17,9 +17,10 @@ class UnSplashRemoteDataSource {
     Result incomingData = Result.loading("Loading");
     try {
       final response = await client.request(
-          requestType: RequestType.GET,
-          path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.home),
-          params: apiParameter);
+        requestType: RequestType.GET,
+        path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.home),
+        params: apiParameter,
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         List<UnsplashResponse> unPlashResponseList = [];
@@ -27,8 +28,9 @@ class UnSplashRemoteDataSource {
           UnsplashResponse unPlashResponse = UnsplashResponse.fromJson(data[i]);
           unPlashResponseList.add(unPlashResponse);
         }
-        incomingData =
-            Result<List<UnsplashResponse>>.success(unPlashResponseList);
+        incomingData = Result<List<UnsplashResponse>>.success(
+          unPlashResponseList,
+        );
         return incomingData;
       } else {
         DialogHelper.showErrorDialog(description: response.body.toString());
@@ -46,9 +48,10 @@ class UnSplashRemoteDataSource {
     Result incomingData = Result.loading("Loading");
     try {
       final response = await client.request(
-          requestType: RequestType.GET,
-          path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.home),
-          params: apiParameter);
+        requestType: RequestType.GET,
+        path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.home),
+        params: apiParameter,
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         List<UnsplashResponse> unPlashResponseList = [];
@@ -56,8 +59,9 @@ class UnSplashRemoteDataSource {
           UnsplashResponse unPlashResponse = UnsplashResponse.fromJson(data[i]);
           unPlashResponseList.add(unPlashResponse);
         }
-        incomingData =
-            Result<List<UnsplashResponse>>.success(unPlashResponseList);
+        incomingData = Result<List<UnsplashResponse>>.success(
+          unPlashResponseList,
+        );
         return incomingData;
       } else {
         DialogHelper.showErrorDialog(description: response.body.toString());
@@ -78,6 +82,7 @@ class UnSplashRemoteDataSource {
         requestType: RequestType.GET,
         customBaseUrl: customBaseUrl,
         path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.topics),
+        parameter: {"per_page": "30"},
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
@@ -101,14 +106,17 @@ class UnSplashRemoteDataSource {
   }
 
   Future<Result> getTopicImages(
-      String customBaseUrl, Map<String, String>? params) async {
+    String customBaseUrl,
+    Map<String, String>? params,
+  ) async {
     Result incomingData = Result.loading("Loading");
     try {
       final response = await client.request(
-          requestType: RequestType.GET,
-          params: params,
-          path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.topics),
-          customBaseUrl: customBaseUrl);
+        requestType: RequestType.GET,
+        params: params,
+        path: UnSplashAPIPathHelper.getValue(UnSplashAPIPath.topics),
+        customBaseUrl: customBaseUrl,
+      );
       if (response.statusCode == 200 || response.statusCode == 201) {
         var data = jsonDecode(response.body);
         List<UnsplashResponse> unPlashResponseList = [];
@@ -116,8 +124,9 @@ class UnSplashRemoteDataSource {
           UnsplashResponse unPlashResponse = UnsplashResponse.fromJson(data[i]);
           unPlashResponseList.add(unPlashResponse);
         }
-        incomingData =
-            Result<List<UnsplashResponse>>.success(unPlashResponseList);
+        incomingData = Result<List<UnsplashResponse>>.success(
+          unPlashResponseList,
+        );
         return incomingData;
       } else {
         DialogHelper.showErrorDialog(description: response.body.toString());
@@ -143,8 +152,9 @@ class UnSplashRemoteDataSource {
         var data = jsonDecode(response.body);
         SelectedImageResponse selectedImageResponse =
             SelectedImageResponse.fromJson(data);
-        incomingData =
-            Result<SelectedImageResponse>.success(selectedImageResponse);
+        incomingData = Result<SelectedImageResponse>.success(
+          selectedImageResponse,
+        );
         return incomingData;
       } else {
         DialogHelper.showErrorDialog(description: response.body.toString());
